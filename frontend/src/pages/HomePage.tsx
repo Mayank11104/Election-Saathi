@@ -1,12 +1,12 @@
-import Navbar from '../components/Navbar';
-import HeroSection from '../components/HeroSection';
-import StatsBar from '../components/StatsBar';
-import HowItWorks from '../components/HowItWorks';
-import ElectionPhases from '../components/ElectionPhases';
-import SampleQuestions from '../components/SampleQuestions';
-import TrustBar from '../components/TrustBar';
-import CTASection from '../components/CTASection';
-import Footer from '../components/Footer';
+import Navbar from '../components/landingpage/Navbar';
+import HeroSection from '../components/landingpage/HeroSection';
+import StatsBar from '../components/landingpage/StatsBar';
+import HowItWorks from '../components/landingpage/HowItWorks';
+import ElectionPhases from '../components/landingpage/ElectionPhases';
+import SampleQuestions from '../components/landingpage/SampleQuestions';
+import TrustBar from '../components/landingpage/TrustBar';
+import CTASection from '../components/landingpage/CTASection';
+import Footer from '../components/landingpage/Footer';
 
 export default function HomePage() {
   return (

@@ -2,10 +2,10 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, RefreshCw, Send } from 'lucide-react';
-import ChatMessage from '../components/ChatMessage';
-import type { Message } from '../components/ChatMessage';
-import CapabilityCards from '../components/CapabilityCards';
-import StarterChips from '../components/StarterChips';
+import ChatMessage from '../components/chatpage/ChatMessage';
+import type { Message } from '../components/chatpage/ChatMessage';
+import CapabilityCards from '../components/chatpage/CapabilityCards';
+import StarterChips from '../components/chatpage/StarterChips';
 
 /* ─── Ashoka Chakra SVG (small header variant) ─── */
 function MiniChakra() {
