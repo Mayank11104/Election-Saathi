@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 /* Mini Ashoka Chakra for watermark */
@@ -22,6 +23,8 @@ function ChakraWatermark() {
 }
 
 export default function CTASection() {
+  const navigate = useNavigate();
+
   return (
     <section id="cta" className="relative bg-saffron overflow-hidden">
       <ChakraWatermark />
@@ -38,17 +41,17 @@ export default function CTASection() {
           <p className="mt-4 text-saffron-light text-base sm:text-lg max-w-xl mx-auto">
             Join millions of Indians who deserve to understand their own democracy.
           </p>
-          <motion.a
-            href="#hero"
+          <motion.button
+            onClick={() => navigate('/chat')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-2 mt-8 px-8 py-4 bg-white text-saffron rounded-full
                        font-bold text-base sm:text-lg shadow-xl shadow-black/10
-                       hover:bg-saffron-light transition-colors duration-200"
+                       hover:bg-saffron-light transition-colors duration-200 cursor-pointer"
           >
             Start Learning Now
             <span>→</span>
-          </motion.a>
+          </motion.button>
         </motion.div>
       </div>
     </section>

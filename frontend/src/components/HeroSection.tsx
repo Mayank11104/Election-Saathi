@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 /* ── Ashoka Chakra SVG ── */
@@ -15,11 +16,8 @@ function AshokaChakra({ className = '' }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-label="Ashoka Chakra"
     >
-      {/* Outer ring */}
       <circle cx={cx} cy={cy} r={outerR} fill="none" stroke="#0D47A1" strokeWidth="3" />
-      {/* Inner hub */}
       <circle cx={cx} cy={cy} r={innerR} fill="none" stroke="#0D47A1" strokeWidth="2.5" />
-      {/* 24 Spokes */}
       {Array.from({ length: spokes }).map((_, i) => {
         const angle = (i * 360) / spokes - 90;
         const rad = (angle * Math.PI) / 180;
@@ -28,19 +26,10 @@ function AshokaChakra({ className = '' }: { className?: string }) {
         const x1 = cx + innerR * Math.cos(rad);
         const y1 = cy + innerR * Math.sin(rad);
         return (
-          <line
-            key={i}
-            x1={x1}
-            y1={y1}
-            x2={x2}
-            y2={y2}
-            stroke="#0D47A1"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-          />
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2}
+            stroke="#0D47A1" strokeWidth="1.5" strokeLinecap="round" />
         );
       })}
-      {/* Curved petals between spokes */}
       {Array.from({ length: spokes }).map((_, i) => {
         const angle1 = (i * 360) / spokes - 90;
         const angle2 = ((i + 1) * 360) / spokes - 90;
@@ -57,14 +46,9 @@ function AshokaChakra({ className = '' }: { className?: string }) {
         const cpx = cx + bulgeR * Math.cos(midRad);
         const cpy = cy + bulgeR * Math.sin(midRad);
         return (
-          <path
-            key={`petal-${i}`}
+          <path key={`petal-${i}`}
             d={`M ${sx} ${sy} Q ${cpx} ${cpy} ${ex} ${ey}`}
-            fill="none"
-            stroke="#0D47A1"
-            strokeWidth="1"
-            opacity={0.5}
-          />
+            fill="none" stroke="#0D47A1" strokeWidth="1" opacity={0.5} />
         );
       })}
     </svg>
@@ -93,16 +77,10 @@ function FloatingParticles() {
           key={i}
           className={i % 3 === 0 ? 'animate-float' : i % 3 === 1 ? 'animate-float-delayed' : 'animate-float-slow'}
           style={{
-            position: 'absolute',
-            left: p.x,
-            top: p.y,
-            width: p.size,
-            height: p.size,
-            borderRadius: '50%',
-            backgroundColor: p.color,
-            opacity: 0.35,
+            position: 'absolute', left: p.x, top: p.y,
+            width: p.size, height: p.size, borderRadius: '50%',
+            backgroundColor: p.color, opacity: 0.35,
             animationDelay: `${p.delay}s`,
-            filter: p.color === '#FFFFFF' ? 'none' : undefined,
             boxShadow: p.color !== '#FFFFFF' ? `0 0 ${p.size * 2}px ${p.color}40` : undefined,
           }}
         />
@@ -112,11 +90,10 @@ function FloatingParticles() {
 }
 
 export default function HeroSection() {
+  const navigate = useNavigate();
+
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden bg-white pt-16"
-    >
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-white pt-16">
       <FloatingParticles />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -147,17 +124,17 @@ export default function HeroSection() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-4">
-              <motion.a
-                href="#cta"
+              <motion.button
+                onClick={() => navigate('/chat')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
                 className="px-6 py-3 sm:px-8 sm:py-3.5 bg-saffron text-white rounded-full font-semibold text-base
                            shadow-lg shadow-saffron/25 hover:bg-saffron-hover transition-colors duration-200
-                           flex items-center gap-2"
+                           flex items-center gap-2 cursor-pointer"
               >
                 Start a Conversation
                 <span>→</span>
-              </motion.a>
+              </motion.button>
 
               <motion.a
                 href="#how-it-works"
@@ -179,10 +156,8 @@ export default function HeroSection() {
             className="relative flex items-center justify-center"
           >
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[420px] lg:h-[420px]">
-              {/* Glow behind the chakra */}
               <div className="absolute inset-0 rounded-full bg-deep-blue/5 blur-3xl scale-110" />
               <AshokaChakra className="w-full h-full animate-spin-slow relative z-10 drop-shadow-lg" />
-              {/* Concentric rings */}
               <div className="absolute inset-4 rounded-full border border-deep-blue/10" />
               <div className="absolute inset-10 rounded-full border border-deep-blue/5" />
             </div>
@@ -190,7 +165,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom fade */}
       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent pointer-events-none" />
     </section>
   );

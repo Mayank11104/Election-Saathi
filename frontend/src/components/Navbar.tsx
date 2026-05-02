@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Vote } from 'lucide-react';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -35,17 +37,17 @@ export default function Navbar() {
           </a>
 
           {/* CTA Button */}
-          <motion.a
-            href="#cta"
+          <motion.button
+            onClick={() => navigate('/chat')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className="px-4 py-2 sm:px-5 sm:py-2.5 bg-saffron text-white rounded-full text-sm font-semibold 
+            className="px-4 py-2 sm:px-5 sm:py-2.5 bg-saffron text-white rounded-full text-sm font-semibold
                        hover:bg-saffron-hover transition-colors duration-200 shadow-sm hover:shadow-md
-                       flex items-center gap-1.5"
+                       flex items-center gap-1.5 cursor-pointer"
           >
             Start Learning
             <span className="text-base">→</span>
-          </motion.a>
+          </motion.button>
         </div>
       </div>
     </motion.nav>

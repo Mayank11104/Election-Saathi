@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const questions = [
@@ -20,6 +21,8 @@ const chipVariants = {
 };
 
 export default function SampleQuestions() {
+  const navigate = useNavigate();
+
   return (
     <section id="questions" className="py-20 sm:py-28 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -67,8 +70,8 @@ export default function SampleQuestions() {
           And thousands more questions — just ask.
         </motion.p>
 
-        <motion.a
-          href="#cta"
+        <motion.button
+          onClick={() => navigate('/chat')}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
           initial={{ opacity: 0, y: 15 }}
@@ -76,11 +79,11 @@ export default function SampleQuestions() {
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
           className="inline-flex items-center gap-2 mt-8 px-8 py-3.5 bg-saffron text-white rounded-full
-                     font-semibold shadow-lg shadow-saffron/25 hover:bg-saffron-hover transition-colors"
+                     font-semibold shadow-lg shadow-saffron/25 hover:bg-saffron-hover transition-colors cursor-pointer"
         >
           Open Election Saathi
           <span>→</span>
-        </motion.a>
+        </motion.button>
       </div>
     </section>
   );

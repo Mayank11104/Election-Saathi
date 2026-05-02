@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Megaphone, UserCheck, FileText, Flag,
@@ -12,16 +13,16 @@ interface Phase {
   icon: LucideIcon;
 }
 
-const phases: Phase[] = [
-  { num: 1, title: 'Election Announcement', desc: 'The Election Commission announces dates and the Model Code of Conduct kicks in.', icon: Megaphone },
-  { num: 2, title: 'Voter Registration', desc: 'Citizens verify and update their names on the electoral roll.', icon: UserCheck },
-  { num: 3, title: 'Candidate Nominations', desc: 'Candidates file nominations; scrutiny and withdrawals follow.', icon: FileText },
-  { num: 4, title: 'Election Campaign', desc: 'Parties campaign across constituencies within strict guidelines.', icon: Flag },
-  { num: 5, title: 'Voting Day', desc: 'Citizens cast their vote at designated polling stations using EVMs.', icon: Vote },
-  { num: 6, title: 'Vote Counting', desc: 'Sealed EVMs are opened and votes are counted under strict observation.', icon: Calculator },
-  { num: 7, title: 'Result Declaration', desc: 'Winners are declared constituency by constituency by the Returning Officer.', icon: Trophy },
-  { num: 8, title: 'Government Formation', desc: 'The party or coalition with a majority forms the government.', icon: Landmark },
-];
+const phaseIcons: Record<number, LucideIcon> = {
+  1: Megaphone,
+  2: UserCheck,
+  3: FileText,
+  4: Flag,
+  5: Vote,
+  6: Calculator,
+  7: Trophy,
+  8: Landmark,
+};
 
 const containerVariants = {
   hidden: {},
@@ -34,6 +35,27 @@ const cardVariants = {
 };
 
 export default function ElectionPhases() {
+  const [phasesData, setPhasesData] = useState<Phase[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:8000/api/election/phases')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          const updatedPhases = data.map((d: any) => {
+            return {
+              num: d.phase_number,
+              title: d.title,
+              desc: d.description,
+              icon: phaseIcons[d.phase_number] || Trophy
+            };
+          });
+          setPhasesData(updatedPhases);
+        }
+      })
+      .catch(err => console.error("Error fetching phases:", err));
+  }, []);
+
   return (
     <section id="phases" className="py-20 sm:py-28 bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,7 +84,7 @@ export default function ElectionPhases() {
           className="flex overflow-x-auto pb-4 gap-5 snap-x snap-mandatory phase-scroll
                      md:grid md:grid-cols-4 md:overflow-visible md:pb-0"
         >
-          {phases.map((phase) => {
+          {phasesData.map((phase) => {
             const Icon = phase.icon;
             return (
               <motion.div
