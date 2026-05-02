@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  --color-saffron: #FF9933;
+  --color-saffron-light: #FFF3E0;
+  --color-saffron-hover: #E8872B;
+  --color-india-green: #138808;
+  --color-green-light: #F0FFF4;
+  --color-deep-blue: #0D47A1;
+  --color-surface: #F9FAFB;
+  --color-text-primary: #1A1A2E;
+  --color-text-muted: #6B7280;
+
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-saffron);
+  border-radius: 3px;
+}
+
+/* Ashoka Chakra rotation */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow {
+    animation: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Floating particle animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); opacity: 0.4; }
+  50% { transform: translateY(-20px) scale(1.1); opacity: 0.7; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 8s ease-in-out 2s infinite;
+}
+
+.animate-float-slow {
+  animation: float 10s ease-in-out 4s infinite;
+}
+
+/* Phase timeline scrollbar */
+.phase-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.phase-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-saffron);
+  border-radius: 2px;
+}
