@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- bg-saffron/10 with rounded-lg (8px radius) -->
+  <rect width="32" height="32" rx="8" fill="#FF9933" fill-opacity="0.1"/>
+  
+  <!-- Lucide Vote Icon centered (w-5 h-5 -> 20x20 in a 32x32 container gives 6px padding) -->
+  <!-- We'll scale it to 20x20 and center it -->
+  <g transform="translate(6, 6) scale(0.8333)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF9933" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m9 12 2 2 4-4"/>
+      <path d="M5 7c0-1.1.9-2 2-2h10a2 2 0 0 1 2 2v12H5V7Z"/>
+      <path d="M22 19H2"/>
+    </svg>
+  </g>
+</svg>

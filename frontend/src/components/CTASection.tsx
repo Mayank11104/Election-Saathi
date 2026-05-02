@@ -45,7 +45,7 @@ export default function CTASection() {
             onClick={() => navigate('/chat')}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 mt-8 px-8 py-4 bg-white text-saffron rounded-full
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 mt-8 px-6 sm:px-8 py-3.5 sm:py-4 bg-white text-saffron rounded-full
                        font-bold text-base sm:text-lg shadow-xl shadow-black/10
                        hover:bg-saffron-light transition-colors duration-200 cursor-pointer"
           >

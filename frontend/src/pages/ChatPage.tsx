@@ -225,10 +225,6 @@ export default function ChatPage() {
 
           {/* Right */}
           <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-green-light rounded-full">
-              <span className="w-2 h-2 rounded-full bg-india-green animate-pulse" />
-              <span className="text-[11px] font-medium text-india-green">AI Online</span>
-            </div>
             <button
               onClick={handleNewChat}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium
@@ -315,7 +311,7 @@ export default function ChatPage() {
 
       {/* ─── INPUT AREA ─── */}
       <footer className="flex-shrink-0 bg-white border-t border-gray-100">
-        <div className="max-w-3xl mx-auto px-4 py-3">
+        <div className="max-w-3xl mx-auto px-4 pt-3 pb-[max(env(safe-area-inset-bottom),16px)] sm:pb-3">
           <div className="flex items-end gap-2">
             <div className="flex-1 relative">
               <textarea
@@ -367,11 +363,11 @@ export default function ChatPage() {
           </div>
 
           {/* Bottom hints */}
-          <div className="flex items-center justify-between mt-2 px-1">
-            <p className="text-[10px] text-text-muted/50">
+          <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between mt-2 px-1 gap-1 sm:gap-0">
+            <p className="hidden sm:block text-[10px] text-text-muted/50">
               Press Enter to send · Shift+Enter for new line
             </p>
-            <p className="text-[10px] text-text-muted/50">
+            <p className="text-[10px] text-text-muted/50 text-center">
               🗳️ Non-partisan · Educational · For every Indian citizen
             </p>
           </div>

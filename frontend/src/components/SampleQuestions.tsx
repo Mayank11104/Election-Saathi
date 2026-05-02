@@ -78,7 +78,7 @@ export default function SampleQuestions() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
-          className="inline-flex items-center gap-2 mt-8 px-8 py-3.5 bg-saffron text-white rounded-full
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 mt-8 px-8 py-3.5 bg-saffron text-white rounded-full
                      font-semibold shadow-lg shadow-saffron/25 hover:bg-saffron-hover transition-colors cursor-pointer"
         >
           Open Election Saathi

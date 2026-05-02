@@ -103,34 +103,34 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="relative z-10"
+            className="relative z-10 text-center lg:text-left pt-10 sm:pt-0"
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-text-primary leading-tight tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary leading-tight tracking-tight">
               Your Personal Guide to{' '}
               <span className="text-deep-blue">Indian Democracy</span>
             </h1>
 
-            <p className="mt-4 text-xl sm:text-2xl font-semibold text-saffron font-[var(--font-heading)]">
+            <p className="mt-4 text-lg sm:text-xl md:text-2xl font-semibold text-saffron font-[var(--font-heading)]">
               समझो, जुड़ो, वोट करो
             </p>
-            <p className="mt-1 text-sm text-text-muted tracking-wide">
+            <p className="mt-1 text-xs sm:text-sm text-text-muted tracking-wide">
               Understand. Connect. Vote.
             </p>
 
-            <p className="mt-6 text-base sm:text-lg text-text-muted leading-relaxed max-w-xl">
+            <p className="mt-6 text-sm sm:text-base md:text-lg text-text-muted leading-relaxed max-w-xl mx-auto lg:mx-0">
               India has 960 million voters. Most don't know what Form 6 is,
               where their polling booth is, or how votes are actually counted.
               Election Saathi changes that — one conversation at a time.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
               <motion.button
                 onClick={() => navigate('/chat')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="px-6 py-3 sm:px-8 sm:py-3.5 bg-saffron text-white rounded-full font-semibold text-base
+                className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-3.5 bg-saffron text-white rounded-full font-semibold text-base
                            shadow-lg shadow-saffron/25 hover:bg-saffron-hover transition-colors duration-200
-                           flex items-center gap-2 cursor-pointer"
+                           flex items-center justify-center gap-2 cursor-pointer"
               >
                 Start a Conversation
                 <span>→</span>
@@ -140,8 +140,8 @@ export default function HeroSection() {
                 href="#how-it-works"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="px-6 py-3 sm:px-8 sm:py-3.5 border-2 border-saffron text-saffron rounded-full font-semibold text-base
-                           hover:bg-saffron/5 transition-colors duration-200"
+                className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-3.5 border-2 border-saffron text-saffron rounded-full font-semibold text-base
+                           hover:bg-saffron/5 transition-colors duration-200 text-center flex items-center justify-center"
               >
                 How it Works
               </motion.a>
