@@ -218,7 +218,7 @@ export default function ChatPage() {
     >
       {/* ─── HEADER ─── */}
       <header className="flex-shrink-0 bg-white border-b border-gray-100 px-4 py-3">
-        <div className="max-w-3xl mx-auto flex items-center justify-between">
+        <div className="max-w-5xl mx-auto flex items-center justify-between">
           {/* Left */}
           <div className="flex items-center gap-2.5">
             <button
@@ -254,7 +254,7 @@ export default function ChatPage() {
 
       {/* ─── LANGUAGE SELECTOR BAR ─── */}
       <div className="flex-shrink-0 bg-white border-b border-gray-100">
-        <div className="max-w-3xl mx-auto px-4 py-2 flex items-center gap-3">
+        <div className="max-w-5xl mx-auto px-4 py-2 flex items-center gap-3">
           {/* Label */}
           <div className="flex items-center gap-1.5 flex-shrink-0">
             <Globe className="w-3.5 h-3.5 text-orange-500" />
@@ -302,7 +302,7 @@ export default function ChatPage() {
 
       {/* ─── CHAT WINDOW ─── */}
       <main className="flex-1 overflow-y-auto">
-        <div className="max-w-3xl mx-auto px-4 py-6">
+        <div className="max-w-5xl mx-auto px-4 py-6">
           {isEmpty ? (
             /* ─── EMPTY STATE ─── */
             <div className="flex flex-col items-center justify-center min-h-[calc(100vh-180px)] gap-6">
@@ -327,7 +327,7 @@ export default function ChatPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.4 }}
-                className="w-full max-w-xl"
+                className="w-full max-w-2xl"
               >
                 <p className="text-xs text-text-muted text-center mb-3 font-medium">
                   Try asking:
@@ -373,7 +373,7 @@ export default function ChatPage() {
 
       {/* ─── INPUT AREA ─── */}
       <footer className="flex-shrink-0 bg-white border-t border-gray-100">
-        <div className="max-w-3xl mx-auto px-4 pt-3 pb-[max(env(safe-area-inset-bottom),16px)] sm:pb-3">
+        <div className="max-w-5xl mx-auto px-4 pt-3 pb-[max(env(safe-area-inset-bottom),16px)] sm:pb-3">
           <AnimatePresence>
             {langToast && (
               <motion.div

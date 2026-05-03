@@ -146,6 +146,17 @@ export default function HeroSection() {
                 How it Works
               </motion.a>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="mt-10"
+            >
+              <p className="inline-block text-xs sm:text-sm text-text-muted font-medium bg-gray-50 border border-gray-100 rounded-full px-5 py-2.5 shadow-sm">
+                Made with <span className="font-semibold text-text-primary">Google Antigravity</span> and Powered by <span className="font-semibold text-text-primary">Google Gemini</span>
+              </p>
+            </motion.div>
           </motion.div>
 
           {/* Right — Ashoka Chakra */}
