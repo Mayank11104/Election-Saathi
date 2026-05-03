@@ -19,9 +19,9 @@ RUN rm /etc/nginx/conf.d/default.conf
 # Copy built assets
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy startup script that substitutes BACKEND_URL and starts nginx
+# Copy startup script — strip Windows CRLF just in case
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+RUN sed -i 's/\r$//' /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh
 
 # Copy nginx template
 COPY nginx.conf.template /etc/nginx/nginx.conf.template
