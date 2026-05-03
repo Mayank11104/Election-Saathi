@@ -1,258 +1,1356 @@
-import json
+# -*- coding: utf-8 -*-
 
 knowledge_base = {
-    "election_phases": [
-        {
-            "phase_number": 1,
-            "title": "Election Announcement",
-            "description": "The Election Commission of India (ECI) announces the election schedule, dates, and phases.",
-            "key_body": "Election Commission of India (ECI)",
-            "what_citizen_should_know": "The Model Code of Conduct (MCC) comes into effect immediately. No new government schemes or policies can be announced that might influence voters."
+    "election_phases": {
+        "phase_1_pre_election_planning": {
+            "official_name": "Pre-Election Planning and Electoral Roll Revision",
+            "responsible_body": "Election Commission of India through State Chief Electoral Officers and Electoral Registration Officers",
+            "statutory_basis": "Sections 14 and 15 of the Representation of the People Act, 1950; Registration of Electors Rules, 1960; Registration of Electors (Amendment) Rules, 2022",
+            "timeline": "Continuous, with annual Special Summary Revision and four qualifying dates on 1 January, 1 April, 1 July and 1 October each year",
+            "citizen_action": "Verify your name on the electoral roll, file Form 6 for new registration, and use Form 8 for corrections, shifting, PwD marking or replacement EPIC before rolls are frozen",
+            "key_deadline": "Freezing of electoral rolls just before the formal notification of election and start of nomination period",
         },
-        {
-            "phase_number": 2,
-            "title": "Voter Registration",
-            "description": "The period for citizens to enroll as new voters, update details, or delete entries.",
-            "key_body": "Electoral Registration Officer (ERO)",
-            "what_citizen_should_know": "You must verify your name on the electoral roll. Merely having a Voter ID (EPIC) is not enough to vote; your name must be on the voter list."
+        "phase_2_announcement_notification": {
+            "official_name": "Election Announcement and Gazette Notification",
+            "responsible_body": "Election Commission of India and President of India (for Lok Sabha elections)",
+            "statutory_basis": "Article 324 of the Constitution of India; Section 30 of the Representation of the People Act, 1951; Model Code of Conduct guidelines",
+            "timeline": "ECI press conference announcing schedule, followed immediately by Gazette Notification calling the constituencies to elect members",
+            "citizen_action": "Note poll dates for your constituency, avoid believing last-minute scheme announcements, and watch for MCC-compliant behaviour",
+            "key_deadline": "Moment of schedule announcement, when the Model Code of Conduct comes into force across India",
         },
-        {
-            "phase_number": 3,
-            "title": "Candidate Nominations",
-            "description": "Candidates file their nomination papers and sworn affidavits detailing their assets, education, and criminal records.",
-            "key_body": "Returning Officer (RO)",
-            "what_citizen_should_know": "This is your chance to research your candidates. All affidavits are public on the ECI KYC app and affidavit portal."
+        "phase_3_nomination_of_candidates": {
+            "official_name": "Nomination of Candidates",
+            "responsible_body": "Returning Officer for each Parliamentary Constituency under supervision of District Election Officer and State CEO",
+            "statutory_basis": "Sections 31 and 33 of the Representation of the People Act, 1951; Article 324 of the Constitution; Association for Democratic Reforms (2002) judgment on affidavits",
+            "timeline": "Begins on the date of Gazette Notification and usually lasts 7–8 days, with nominations closing at 3:00 PM on the final day",
+            "citizen_action": "Track which candidates file nominations in your constituency and review their Form 26 affidavits once published",
+            "key_deadline": "3:00 PM on the last day for filing nomination papers with the Returning Officer",
         },
-        {
-            "phase_number": 4,
-            "title": "Election Campaign",
-            "description": "Political parties and candidates hold rallies, distribute manifestos, and campaign.",
-            "key_body": "Political Parties & Candidates",
-            "what_citizen_should_know": "Campaigning is strictly monitored under MCC. It officially ends 48 hours before polling begins (the 'Silent Period')."
+        "phase_4_scrutiny_of_nominations": {
+            "official_name": "Scrutiny of Nominations",
+            "responsible_body": "Returning Officer acting in a quasi-judicial capacity",
+            "statutory_basis": "Section 36 of the Representation of the People Act, 1951; Conduct of Elections Rules, 1961",
+            "timeline": "Held on the day immediately following the last date for nominations, or as fixed by ECI in the election schedule",
+            "citizen_action": "Understand that only validly nominated candidates will appear on the final ballot; objections and rejections happen in this phase",
+            "key_deadline": "Completion of scrutiny and publication of list of validly nominated candidates by the Returning Officer",
         },
-        {
-            "phase_number": 5,
-            "title": "Voting Day",
-            "description": "Eligible voters cast their ballots at designated polling booths using EVMs.",
-            "key_body": "Presiding Officer & Polling Officials",
-            "what_citizen_should_know": "Mobile phones are not allowed inside the booth. You need to bring an approved ID document. The VVPAT machine will show a slip for 7 seconds to verify your vote."
+        "phase_5_withdrawal_of_candidature": {
+            "official_name": "Withdrawal of Candidature",
+            "responsible_body": "Returning Officer for the constituency",
+            "statutory_basis": "Section 37 of the Representation of the People Act, 1951",
+            "timeline": "Typically a two day window after scrutiny, closing at 3:00 PM on the final day for withdrawals",
+            "citizen_action": "Refer only to the final list of contesting candidates published after this phase, not earlier speculative lists",
+            "key_deadline": "3:00 PM on the last day for withdrawal of candidature, after which the list of contesting candidates becomes final",
         },
-        {
-            "phase_number": 6,
-            "title": "Vote Counting",
-            "description": "EVMs are opened at secure counting centers and votes are tabulated round by round.",
-            "key_body": "Returning Officer & Counting Staff",
-            "what_citizen_should_know": "Counting happens under strict security and CCTV surveillance. VVPAT slips from randomly selected polling stations are manually counted to cross-verify EVM results."
+        "phase_6_electoral_campaign": {
+            "official_name": "Campaign Period",
+            "responsible_body": "Political parties and candidates under supervision of Election Commission of India, State CEOs, District Election Officers and Observers",
+            "statutory_basis": "Representation of the People Act, 1951 (corrupt practices and election offences); Bharatiya Nyaya Sanhita provisions on bribery and hate speech; Model Code of Conduct",
+            "timeline": "From publication of the final list of contesting candidates until the start of the statutory silence period, usually 2–4 weeks",
+            "citizen_action": "Attend meetings if you like, refuse inducements, report cash, liquor or hate speech through the cVIGIL app or to 1950, and study candidates’ backgrounds",
+            "key_deadline": "Start of the 48 hour silence period before close of poll in each constituency, when all public campaigning must stop",
         },
-        {
-            "phase_number": 7,
-            "title": "Result Declaration",
-            "description": "The Returning Officer officially declares the winner for each constituency.",
-            "key_body": "Returning Officer",
-            "what_citizen_should_know": "The winning candidate receives a Certificate of Election. Any disputes regarding the election must be filed as an election petition in the High Court."
+        "phase_7_silence_period_and_polling_day": {
+            "official_name": "Silence Period and Polling Day",
+            "responsible_body": "Election Commission of India, Chief Electoral Officer, District Election Officer, Returning Officer, Presiding Officers and Polling Staff",
+            "statutory_basis": "Section 126 of the Representation of the People Act, 1951; Conduct of Elections Rules, 1961; Section 128 on secret ballot; Section 135B on paid holiday",
+            "timeline": "Silence period covers the 48 hours before the scheduled close of poll; polling itself is conducted between notified hours on the poll date",
+            "citizen_action": "Ensure your name is on the electoral roll, carry EPIC or one of the 12 approved photo IDs, follow booth instructions, and cast your vote by secret ballot on the EVM",
+            "key_deadline": "Official poll closing time; any voter standing in the queue at that exact time has a statutory right to vote even if voting continues later",
         },
-        {
-            "phase_number": 8,
-            "title": "Government Formation",
-            "description": "The party or coalition with a majority of seats forms the government.",
-            "key_body": "President of India / State Governor",
-            "what_citizen_should_know": "The leader of the majority party is invited to take the oath as Prime Minister (or Chief Minister) and form the Cabinet."
-        }
-    ],
-    "forms": [
-        {
-            "form_number": "Form 6",
-            "purpose": "Application for new voter registration for general electors.",
-            "who_needs_it": "First-time voters (18+ years) or individuals shifting residence to a different constituency.",
-            "portal_url": "voters.eci.gov.in",
-            "documents_needed": ["Passport-size photograph", "Address proof (Aadhaar, utility bill, passbook)", "Age proof (Aadhaar, PAN, birth certificate)"],
-            "processing_time": "Approximately 30 days"
+        "phase_8_counting_and_declaration": {
+            "official_name": "Counting of Votes and Declaration of Results",
+            "responsible_body": "Returning Officer, Counting Supervisors and Staff under overall superintendence of the Election Commission of India",
+            "statutory_basis": "Sections 64 and 66 of the Representation of the People Act, 1951; Conduct of Elections Rules, 1961; Supreme Court directions on VVPAT audits",
+            "timeline": "Counting usually takes place on a single day fixed by the ECI after all polling phases are completed, with results typically declared the same day",
+            "citizen_action": "Follow official trends and results from the ECI, understand that one VVPAT per Assembly Segment is counted by default, and that further EVM verification is now possible under the 2024–2025 SOP",
+            "key_deadline": "Formal declaration of result for each constituency by the Returning Officer and issue of Certificate of Election to the returned candidate",
         },
-        {
-            "form_number": "Form 6A",
-            "purpose": "Application for inclusion of name in electoral roll by an overseas Indian elector (NRI).",
-            "who_needs_it": "Non-Resident Indians (NRIs) holding an Indian passport who have not acquired citizenship of any other country.",
-            "portal_url": "voters.eci.gov.in",
-            "documents_needed": ["Passport-size photograph", "Self-attested copy of valid Indian passport", "Copy of visa"],
-            "processing_time": "Approximately 30 days"
-        },
-        {
-            "form_number": "Form 7",
-            "purpose": "Application for objecting to inclusion or seeking deletion of name in electoral roll.",
-            "who_needs_it": "Anyone reporting a deceased voter, someone who has permanently shifted, or objecting to a wrong entry.",
-            "portal_url": "voters.eci.gov.in",
-            "documents_needed": ["Details of the elector whose name is to be deleted", "Death certificate (if applicable)"],
-            "processing_time": "Varies after field verification"
-        },
-        {
-            "form_number": "Form 8",
-            "purpose": "Application for correction of particulars entered in electoral roll, replacement of EPIC, or marking of PwD.",
-            "who_needs_it": "Voters needing to fix spelling mistakes, update photo, replace a lost Voter ID, or register as Persons with Disabilities.",
-            "portal_url": "voters.eci.gov.in",
-            "documents_needed": ["Proof of correct information (e.g., Aadhaar for name/DOB correction)", "Copy of FIR/police report (for lost EPIC)"],
-            "processing_time": "Approximately 30 days"
-        },
-        {
-            "form_number": "Form 8A",
-            "purpose": "Application for shifting of residence within the same constituency.",
-            "who_needs_it": "Voters who have changed their address but still live in the same electoral constituency.",
-            "portal_url": "voters.eci.gov.in",
-            "documents_needed": ["New address proof (Aadhaar, rent agreement, utility bill)"],
-            "processing_time": "Approximately 30 days"
-        }
-    ],
-    "voting_day_documents": [
-        "Voter ID card (EPIC)",
-        "Aadhaar Card",
-        "PAN Card",
-        "Unique Disability ID (UDID) Card",
-        "Service Identity Card with photograph issued by Central/State Govt./PSUs/Public Limited Companies",
-        "Passbook with photograph issued by Bank/Post Office",
-        "Health Insurance Smart Card issued under the scheme of Ministry of Labour",
-        "Driving License",
-        "Passport",
-        "Smart Card issued by RGI under NPR",
-        "Pension document with photograph",
-        "Official identity card issued to MPs/MLAs/MLCs",
-        "MNREGA Job Card"
-    ],
-    "key_terms": {
-        "EVM": "Electronic Voting Machine. The electronic device used to record votes safely and securely instead of paper ballots.",
-        "VVPAT": "Voter Verifiable Paper Audit Trail. A machine attached to the EVM that prints a slip showing the symbol and name of the candidate you voted for. It is visible behind glass for 7 seconds before dropping into a sealed box.",
-        "EPIC": "Electors Photo Identity Card. Commonly known as the Voter ID card.",
-        "MCC": "Model Code of Conduct. A set of guidelines for political parties and candidates to ensure free and fair elections. It bans misuse of official machinery and bribing voters.",
-        "ERO": "Electoral Registration Officer. The official responsible for maintaining the voter list for a constituency.",
-        "Returning Officer": "The official responsible for overseeing the election in a constituency and declaring the final results.",
-        "Presiding Officer": "The official in charge of a specific polling booth on election day to ensure voting happens smoothly.",
-        "Constituency": "A geographical area that elects one representative to a legislative body.",
-        "Booth": "The physical location (usually a school or community hall) where you go to cast your vote.",
-        "NOTA": "None Of The Above. An option on the EVM that allows you to officially register your rejection of all candidates contesting in your constituency.",
-        "First Past the Post": "The voting system used in India where the candidate who gets the most votes wins, even if they don't get an absolute majority.",
-        "Affidavit": "A legally sworn document filed by a candidate declaring their criminal record, assets, liabilities, and educational qualifications.",
-        "Silent Period": "The 48 hours immediately before polling begins, during which all public campaigning, rallies, and loudspeakers are strictly banned.",
-        "Strong Room": "A highly secure, multi-lock room guarded 24/7 by central armed police forces where EVMs are stored before and after voting until counting day."
     },
-    "voter_eligibility": {
-        "minimum_age": "Must be 18 years old on the qualifying date (usually Jan 1st, April 1st, July 1st, or Oct 1st of the year).",
-        "citizenship_requirement": "Must be a citizen of India.",
-        "residency_requirement": "Must be an 'ordinary resident' of the polling area where they wish to enroll.",
-        "disqualification_conditions": ["Declared to be of unsound mind by a competent court", "Disqualified due to corrupt practices or electoral offenses", "Not a citizen of India"],
-        "nri_voting_rights": "NRIs holding an Indian passport can vote, but they must be physically present at their designated polling booth in India. There is currently no online or postal voting for NRIs."
-    },
-    "common_myths": [
-        {
-            "myth": "I cannot vote without my physical Voter ID card.",
-            "truth": "False. As long as your name is on the electoral roll, you can vote using any of the 12 approved identity documents like Aadhaar, PAN card, or Driving License."
-        },
-        {
-            "myth": "NRIs cannot vote in Indian elections.",
-            "truth": "False. NRIs can register using Form 6A and vote, provided they have a valid Indian passport and are physically present at the booth on voting day."
-        },
-        {
-            "myth": "My vote is not secret, someone can figure out who I voted for.",
-            "truth": "False. Voting in India is conducted via a secret ballot. The EVM does not record the voter's identity alongside the vote."
-        },
-        {
-            "myth": "EVMs can be hacked remotely via Bluetooth or WiFi.",
-            "truth": "False. EVMs are standalone machines. They have no wireless communication capabilities, no internet connection, no Bluetooth, and no WiFi."
-        },
-        {
-            "myth": "Voting is compulsory in India by law.",
-            "truth": "False. Voting is a constitutional right, not a legal obligation. You will not face penalties for not voting."
-        },
-        {
-            "myth": "I cannot vote if I moved to a new city for work.",
-            "truth": "False. You can transfer your vote to your new city by filling Form 6, or you can travel back to your home constituency to vote."
-        },
-        {
-            "myth": "NOTA means none of the candidates will win if NOTA gets the highest votes.",
-            "truth": "False. Even if NOTA gets the maximum votes, the candidate with the second-highest votes (the highest among candidates) is declared the winner. NOTA is for expressing dissatisfaction, not triggering a re-election."
-        },
-        {
-            "myth": "I need to be physically present at a government office to register to vote.",
-            "truth": "False. You can complete the entire voter registration process online via voters.eci.gov.in or the Voter Helpline App from anywhere."
-        },
-        {
-            "myth": "My single vote doesn't matter in a constituency with lakhs of voters.",
-            "truth": "False. Elections in India have been won or lost by margins of less than 10 votes. Every single vote significantly impacts the mandate."
-        },
-        {
-            "myth": "I will lose my job if I skip work to go vote.",
-            "truth": "False. Under the Representation of the People Act, employers must grant a paid holiday to employees on polling day in their constituency. Deducting salary for voting is a punishable offense."
-        }
-    ],
-    "eci_portals": {
-        "Main ECI Website": "eci.gov.in - For general guidelines, MCC rules, and official announcements.",
-        "Voter Services Portal": "voters.eci.gov.in - For voter registration, forms, and downloading e-EPIC.",
-        "National Voter's Service Portal (Legacy)": "nvsp.in - Now redirects to voters.eci.gov.in.",
-        "Electoral Search": "electoralsearch.eci.gov.in - To check if your name is on the voter list and find your booth.",
-        "cVIGIL App": "cvigil.eci.gov.in - To report Model Code of Conduct violations anonymously with photos/videos.",
-        "Candidate Affidavits": "affidavit.eci.gov.in - To read the criminal and financial backgrounds of contesting candidates."
-    },
-    "evm_vvpat_facts": [
-        "EVMs have no wireless communication components (No WiFi, No Bluetooth, No Radio frequency).",
-        "EVMs are standalone machines running on secure battery packs, independent of the power grid.",
-        "Cannot be remotely accessed or connected to any external network or computer.",
-        "First Level Checking (FLC) is done in the presence of political party representatives months before the election.",
-        "Mock Polls are conducted on election morning. 50 votes are cast and tallied with VVPAT slips in front of polling agents.",
-        "VVPAT (Voter Verifiable Paper Audit Trail) prints a slip showing the candidate's serial number, name, and symbol.",
-        "The VVPAT slip is visible to the voter behind a transparent window for 7 seconds before falling into a sealed drop box.",
-        "If there's a dispute, the VVPAT slips can be physically counted. By rule, slips from 5 randomly selected polling stations per assembly constituency are mandatorily counted to verify the EVM results."
-    ]
-}
 
-def get_formatted_context() -> str:
-    """
-    Returns the complete knowledge base as a formatted string
-    for injection into the Gemini system prompt.
-    """
-    context = "VERIFIED ECI KNOWLEDGE BASE:\n\n"
-    
-    context += "--- ELECTION PHASES ---\n"
-    for phase in knowledge_base["election_phases"]:
-        context += f"Phase {phase['phase_number']}: {phase['title']}\n"
-        context += f"Description: {phase['description']}\n"
-        context += f"Key Body: {phase['key_body']}\n"
-        context += f"Citizen Action: {phase['what_citizen_should_know']}\n\n"
-        
-    context += "--- VOTER FORMS ---\n"
-    for form in knowledge_base["forms"]:
-        context += f"Form: {form['form_number']}\n"
-        context += f"Purpose: {form['purpose']}\n"
-        context += f"Who needs it: {form['who_needs_it']}\n"
-        context += f"Portal: {form['portal_url']}\n"
-        context += f"Documents needed: {', '.join(form['documents_needed'])}\n"
-        context += f"Processing time: {form['processing_time']}\n\n"
-        
-    context += "--- APPROVED VOTING DAY DOCUMENTS (Any 1 required) ---\n"
-    for doc in knowledge_base["voting_day_documents"]:
-        context += f"- {doc}\n"
-    context += "\n"
-        
-    context += "--- KEY TERMS ---\n"
-    for term, definition in knowledge_base["key_terms"].items():
-        context += f"{term}: {definition}\n"
-    context += "\n"
-    
-    context += "--- VOTER ELIGIBILITY ---\n"
-    context += f"Age: {knowledge_base['voter_eligibility']['minimum_age']}\n"
-    context += f"Citizenship: {knowledge_base['voter_eligibility']['citizenship_requirement']}\n"
-    context += f"Residency: {knowledge_base['voter_eligibility']['residency_requirement']}\n"
-    context += f"Disqualifications: {', '.join(knowledge_base['voter_eligibility']['disqualification_conditions'])}\n"
-    context += f"NRIs: {knowledge_base['voter_eligibility']['nri_voting_rights']}\n\n"
-    
-    context += "--- MYTHS vs FACTS ---\n"
-    for item in knowledge_base["common_myths"]:
-        context += f"Myth: {item['myth']}\n"
-        context += f"Truth: {item['truth']}\n\n"
-        
-    context += "--- OFFICIAL PORTALS ---\n"
-    for name, url in knowledge_base["eci_portals"].items():
-        context += f"{name}: {url}\n"
-    context += "\n"
-    
-    context += "--- EVM & VVPAT SECURITY FACTS ---\n"
-    for fact in knowledge_base["evm_vvpat_facts"]:
-        context += f"- {fact}\n"
-        
-    return context
+    "voter_registration_forms": {
+        "form_6": {
+            "purpose": "First-time registration as an elector or registration in a completely new constituency after migration",
+            "target_electorate": "Indian citizens who are or will be 18 or above on one of the four qualifying dates and are ordinarily resident in the constituency",
+            "qualifying_dates": [
+                "1 January",
+                "1 April",
+                "1 July",
+                "1 October",
+            ],
+            "mandatory_documents": [
+                "Recent passport size photograph",
+                "Proof of age such as birth certificate, Class X marksheet or PAN where applicable",
+                "Proof of ordinary residence such as electricity bill, water bill, bank passbook, rent agreement or property document",
+            ],
+            "processing_time": "Generally 15 to 30 days in normal periods and aligned with the next revision during Special Summary Revision",
+            "portal_url": "https://voters.eci.gov.in",
+            "blo_visit_required": True,
+            "online_submission": True,
+            "common_mistakes": [
+                "Filing multiple Form 6 applications instead of tracking one application through its reference ID",
+                "Using Form 6 to shift within the same constituency instead of using Form 8",
+                "Uploading unclear photographs or unreadable document scans",
+                "Entering incorrect spelling in regional language fields and not checking the preview before submitting",
+            ],
+            "penalty_for_false_info": "Section 31 of the Representation of the People Act, 1950 provides punishment up to one year imprisonment and fine for making false declarations in connection with preparation of electoral rolls",
+            "pro_tip": "Use your correct mobile number so that the ERO and BLO can contact you; check both English and local language spellings carefully before final submission",
+            "statutory_basis": "Sections 14, 15, 19 and 21 of the Representation of the People Act, 1950; Registration of Electors Rules, 1960 as amended in 2022",
+        },
+        "form_6A": {
+            "purpose": "Registration of an Overseas Elector (NRI) in the electoral roll of the constituency corresponding to the address in the Indian passport",
+            "target_electorate": "Indian citizens residing outside India who have not acquired foreign citizenship and whose names are not already enrolled in any electoral roll in India",
+            "qualifying_dates": [
+                "1 January",
+                "1 April",
+                "1 July",
+                "1 October",
+            ],
+            "mandatory_documents": [
+                "Recent coloured photograph",
+                "Self-attested copy of valid Indian passport pages showing photograph, personal details and address in India",
+                "Self-attested copy of valid visa endorsement or resident permit for the foreign country",
+            ],
+            "processing_time": "Typically 15 to 30 days from receipt by the Electoral Registration Officer, subject to verification",
+            "portal_url": "https://voters.eci.gov.in",
+            "blo_visit_required": False,
+            "online_submission": True,
+            "common_mistakes": [
+                "Using a foreign address instead of the Indian passport address for mapping the constituency",
+                "Sending photocopies by post without proper attestation by the Indian Mission or a designated officer",
+                "Assuming that NRI voters can vote online or by postal ballot, whereas physical presence in the polling station is mandatory",
+            ],
+            "penalty_for_false_info": "False declaration regarding citizenship, address or identity can attract penal action under Section 31 of the Representation of the People Act, 1950 and other relevant laws",
+            "pro_tip": "Keep your original passport ready to present at the polling station in India; always ensure your overseas contact details are accurate so that ERO can clarify doubts quickly",
+            "statutory_basis": "Section 20A of the Representation of the People Act, 1950; Rule 8A and related provisions of the Registration of Electors Rules, 1960",
+            "physical_presence_to_vote": True,
+            "attestation_requirement": "If Form 6A is sent by post, passport and visa copies must be duly attested by an officer of the Indian Mission or Consulate in the country of residence",
+        },
+        "form_6B": {
+            "purpose": "Voluntary authentication of entries in the electoral roll by furnishing Aadhaar or other officially permitted document for identity deduplication",
+            "target_electorate": "Existing registered electors whose names are already included in the electoral roll and who wish to share Aadhaar or permitted alternatives",
+            "qualifying_dates": [
+                "1 January",
+                "1 April",
+                "1 July",
+                "1 October",
+            ],
+            "mandatory_documents": [
+                "Aadhaar number if available",
+                "If Aadhaar is not available, any officially notified alternative document such as MGNREGA job card or other permitted identity proof",
+            ],
+            "processing_time": "Instant or a few days depending on whether online authentication succeeds or manual verification by BLO is required",
+            "portal_url": "https://voters.eci.gov.in",
+            "blo_visit_required": False,
+            "online_submission": True,
+            "common_mistakes": [
+                "Believing that Form 6B submission is compulsory and that non-submission can lead to deletion from the roll",
+                "Entering an incorrect Aadhaar number or linking someone else’s Aadhaar to your voter entry",
+                "Submitting both Aadhaar and alternative documents in a confusing way instead of following the instructions in the form",
+            ],
+            "penalty_for_false_info": "Knowingly furnishing wrong Aadhaar or impersonating another person can attract action under the Registration of Electors Rules, 1960, the Aadhaar Act and general penal law",
+            "pro_tip": "Only submit details you are comfortable sharing; remember that your name cannot be deleted solely for not filing Form 6B",
+            "statutory_basis": "Rule 26A of the Registration of Electors Rules, 1960 as inserted by the Registration of Electors (Amendment) Rules, 2022",
+            "is_mandatory": False,
+            "deletion_risk_if_not_submitted": False,
+            "critical_myth_buster": "The Electoral Registration Officer cannot delete or refuse your registration only because you did not submit Aadhaar using Form 6B",
+        },
+        "form_7": {
+            "purpose": "Objection to inclusion of a name in the electoral roll or application for deletion of an existing name",
+            "target_electorate": "Citizens who detect a deceased person, a duplicate entry or someone who has permanently shifted away remaining on the roll, including their own old entry",
+            "qualifying_dates": [
+                "1 January",
+                "1 April",
+                "1 July",
+                "1 October",
+            ],
+            "mandatory_documents": [
+                "If reporting a death, copy of death certificate or other credible proof",
+                "If reporting permanent shift, address details of the person and any supporting information about migration",
+                "Details of the impugned entry including EPIC number, part number and serial number where possible",
+            ],
+            "processing_time": "Normally 15 to 30 days including notice period and field verification, aligned with revision cycles",
+            "portal_url": "https://voters.eci.gov.in",
+            "blo_visit_required": False,
+            "online_submission": True,
+            "common_mistakes": [
+                "Trying to use Form 7 on polling day hoping to vote when one’s name is missing from the roll",
+                "Filing vague objections without giving sufficient particulars of the person whose entry is being challenged",
+                "Making motivated or malicious objections against political opponents without evidence, risking penal consequences",
+            ],
+            "penalty_for_false_info": "Section 31 of the Representation of the People Act, 1950 punishes false declarations in relation to electoral rolls with imprisonment up to one year and fine",
+            "pro_tip": "Use Form 7 responsibly and only with evidence; remember that the ERO must send a notice to the person whose name is being objected to and cannot delete on bare allegations",
+            "statutory_basis": "Sections 22 and 23 of the Representation of the People Act, 1950; Registration of Electors Rules, 1960",
+            "filing_window": "Generally during continuous updation and special revision periods; objections cannot be entertained on polling day",
+            "notice_to_objected_person": True,
+        },
+        "form_8": {
+            "purpose": "Correction of entries, shifting of residence within the same constituency, replacement of EPIC and marking of Person with Disability status",
+            "target_electorate": "Existing electors who need to correct personal details, update address within the same constituency, get a duplicate EPIC or add PwD information",
+            "qualifying_dates": [
+                "1 January",
+                "1 April",
+                "1 July",
+                "1 October",
+            ],
+            "mandatory_documents": [
+                "Documentary proof supporting the requested correction such as Aadhaar, passport or educational certificate for name and age",
+                "Address proof for shifting within the constituency such as electricity bill or rent agreement",
+                "Disability certificate or UDID card for PwD marking, where applicable",
+                "FIR or police complaint copy if original EPIC is reported lost for duplicate issue",
+            ],
+            "processing_time": "Normally 15 to 30 days; corrections are reflected in the next updated roll publication",
+            "portal_url": "https://voters.eci.gov.in",
+            "blo_visit_required": True,
+            "online_submission": True,
+            "common_mistakes": [
+                "Using Form 6 instead of Form 8 for shifting within the same constituency, causing duplicate entries and rejection",
+                "Not specifying clearly which field is to be corrected in the form and in the supporting documents",
+                "Failing to return the damaged original EPIC when seeking a replacement for physical damage rather than loss",
+            ],
+            "penalty_for_false_info": "False particulars in Form 8 can attract action under Section 31 of the Representation of the People Act, 1950 and other applicable laws",
+            "pro_tip": "Always check the draft roll in both languages after your Form 8 is processed to ensure that spelling and address fields are accurately updated",
+            "statutory_basis": "Sections 22 and 23 of the Representation of the People Act, 1950; modified Forms under Registration of Electors (Amendment) Rules, 2022",
+            "use_cases": [
+                "Correction of name spelling, age, gender or relationship details",
+                "Shifting of residence to another part of the same constituency",
+                "Replacement of a lost, damaged or torn EPIC card",
+                "Marking of Person with Disability status and associated facilities",
+                "Change of surname after marriage or other legally valid name change",
+            ],
+            "damaged_epic_note": "Where the original EPIC is damaged but available, the elector must surrender it to the ERO at the time of requesting a replacement",
+        },
+        "deprecated_forms": {
+            "form_8A": {
+                "status": "Discontinued",
+                "replaced_by": "Form 8 for shifting and transposition within the same constituency or to another constituency in the same State",
+                "effective_date": "1 August 2022",
+                "legal_basis": "Registration of Electors (Amendment) Rules, 2022 introducing consolidated Form 8 and withdrawing Form 8A",
+                "eci_secretary_quote": "The amended forms architecture simplifies citizen experience by consolidating correction, shifting and PwD marking into a single Form 8 while preserving all statutory safeguards.",
+                "explanation": "Form 8A was earlier used only for transposition of an entry within the same constituency or between constituencies within a State, but from 1 August 2022 its functions have been absorbed into the modernised Form 8, so voters should no longer attempt to file Form 8A either online or offline.",
+            },
+        },
+    },
+
+    "polling_day_procedures": {
+        "primary_id_document": "Elector’s Photo Identity Card (EPIC) is the primary document, but any one of 12 approved alternative photo ID documents is equally valid if the voter’s name is on the roll",
+        "approved_identity_documents": [
+            "Aadhaar Card",
+            "MNREGA Job Card",
+            "Passbook with photograph issued by a Bank or Post Office",
+            "Health Insurance Smart Card issued under Ministry of Labour schemes or Ayushman Bharat",
+            "Driving Licence",
+            "Permanent Account Number (PAN) Card",
+            "Smart Card issued by Registrar General of India under National Population Register",
+            "Indian Passport",
+            "Pension document with photograph",
+            "Service Identity Card with photograph issued by Central or State Governments, PSUs or Public Limited Companies",
+            "Official identity card issued to Members of Parliament, Members of Legislative Assembly or Members of Legislative Council",
+            "Unique Disability ID (UDID) Card issued by the Ministry of Social Justice and Empowerment",
+        ],
+        "exclusion_note": "The Voter Information Slip is only an informational aid to help you locate your polling station and serial number and is not accepted as a valid identity document for voting",
+        "booth_workflow": {
+            "po_1": {
+                "officer": "First Polling Officer",
+                "action": "Verifies the voter’s identity against the marked copy of the electoral roll, announces the name and serial number aloud and allows for any challenge by polling agents",
+                "legal_basis": "Conduct of Elections Rules, 1961 and Presiding Officer’s handbook instructions on identification of electors",
+                "citizen_note": "Listen carefully when your name is read out and correct any obvious pronunciation or spelling confusion so polling agents do not mistakenly challenge you",
+            },
+            "po_2": {
+                "officer": "Second Polling Officer",
+                "action": "Applies indelible ink on the left forefinger, records details in the Register of Voters (Form 17A) and obtains signature or thumb impression before issuing a voter slip",
+                "legal_basis": "Rule 35 and related provisions of the Conduct of Elections Rules, 1961; instructions on use of Form 17A and indelible ink",
+                "citizen_note": "Ensure the ink mark is actually applied on your left forefinger and sign or mark Form 17A carefully, as this establishes that you have been issued a ballot on the machine",
+            },
+            "po_3": {
+                "officer": "Third Polling Officer",
+                "action": "Collects the voter slip, rechecks the ink mark and activates the Control Unit by pressing the Ballot button so that one vote can be recorded in the EVM",
+                "legal_basis": "Rules 49A to 49X of the Conduct of Elections Rules, 1961 governing recording of votes by voting machines",
+                "citizen_note": "Hand over the slip only when asked and enter the voting compartment only after the Ballot button has been pressed so your vote is properly enabled",
+            },
+            "voting_compartment": {
+                "officer": "Voter alone inside the voting compartment",
+                "action": "Presses the blue button next to the chosen candidate’s name and symbol on the Ballot Unit, views the VVPAT slip through the window for seven seconds and then exits",
+                "legal_basis": "Rule 39 and Rule 49M of the Conduct of Elections Rules, 1961; Section 128 of the Representation of the People Act, 1951 on secrecy of voting",
+                "citizen_note": "Check that the VVPAT slip briefly shows the same candidate name and symbol you chose and never try to take a photograph or touch the slip or machine",
+            },
+        },
+        "vvpat_display": {
+            "duration_seconds": 7,
+            "what_is_shown": "A printed slip displaying the serial number, name and symbol of the candidate for whom the vote has been recorded",
+            "what_happens_after": "After the display period the VVPAT automatically cuts the slip and drops it into a sealed box inside the VVPAT unit for later audit and preservation",
+            "citizen_right": "You have the right to see the VVPAT slip clearly through the transparent window during the display period and to draw the attention of the Presiding Officer immediately if it does not match your choice",
+        },
+        "indelible_ink": {
+            "finger": "Left forefinger",
+            "manufacturer": "Mysore Paints and Varnish Ltd",
+            "duration_weeks": "2–3",
+            "purpose": "To prevent multiple voting by the same elector and to provide a visible proof that the person has already been issued a ballot",
+            "tamper_resistance": "The ink leaves a strong stain on the skin and especially on the cuticle area of the fingernail, which cannot be easily removed and fades only as the nail grows out",
+        },
+        "missing_name_rule": {
+            "rule": "Only persons whose names are present on the final electoral roll for the polling station can vote, regardless of what identity documents they carry",
+            "can_vote": False,
+            "remedy": "If your name is missing, you cannot vote in that election and should subsequently file Form 6 or Form 8 as appropriate and check your name before the next poll",
+            "myth_buster": "There is no provision to fill a form at the booth on polling day to ‘add’ your name and vote; videos claiming this option are misleading",
+        },
+        "name_mismatch_handling": {
+            "rule": "Minor spelling differences or variations between the identity document and the electoral roll that do not create doubt about identity can be ignored by the Presiding Officer",
+            "presiding_officer_discretion": "The Presiding Officer may permit the vote if satisfied that the person before them is the same elector whose name appears on the roll",
+            "what_counts_as_minor": "Differences such as shortened names, common spelling variations or transliteration differences in regional language, where age, address and other particulars still match",
+        },
+        "rule_42_tendered_ballot": {
+            "trigger": "A genuine voter arrives at the polling station and finds that a vote has already been recorded in the EVM against their name in the marked copy of the roll",
+            "process": [
+                "The Presiding Officer verifies the voter’s identity using documents and questions and satisfies themselves that the person is the true elector",
+                "The Presiding Officer issues a tendered ballot paper of a different colour and records details in the list of tendered votes",
+                "The voter marks their choice for a candidate on the tendered ballot paper in a separate compartment maintaining secrecy",
+                "The voter places the marked tendered ballot paper in a cover and hands it back to the Presiding Officer",
+                "The Presiding Officer keeps the cover containing the tendered ballot in a separate packet for potential judicial scrutiny",
+            ],
+            "storage": "Tendered ballot covers are sealed and stored carefully and are not mixed with ordinary ballot papers or electronic results",
+            "when_counted": "Tendered ballots are normally not mixed into the main tally but may be opened and considered by a court if an election petition is filed and margins are in dispute",
+            "statutory_basis": "Rule 42 of the Conduct of Elections Rules, 1961 relating to tendered votes",
+        },
+        "impersonation_handling": {
+            "detection": "Impersonation may be suspected by polling agents who know local voters, or by mismatched appearance and behaviour, or by prior complaints",
+            "challenge_process": "Any polling agent can challenge an elector’s identity upon depositing a prescribed fee, prompting detailed questioning by the Presiding Officer and comparison of signatures or thumb impressions",
+            "tendered_ballot_for_genuine_voter": "If it is established that a wrong person has already voted in the name of a genuine elector, the genuine elector is allowed to cast a tendered ballot as per Rule 42 to preserve their right for possible legal proceedings",
+        },
+        "queue_right_closing_time": {
+            "rule": "Any voter who is standing in the queue at the polling station at the official hour of closing is entitled to receive a token and cast their vote even if voting continues beyond closing time",
+            "statutory_basis": "Conduct of Elections Rules, 1961 read with ECI instructions on regulation of queues and issue of last voter tokens",
+        },
+        "prohibition_phones_cameras": {
+            "rule": "Use of mobile phones, cameras and other recording devices is prohibited inside the polling station and especially inside the voting compartment",
+            "exception_none": "There is no general exception; in rare cases where a device is allowed for accessibility, it is kept with polling staff and cannot be taken into the compartment for photography",
+            "statutory_basis": "Section 128 of the Representation of the People Act, 1951 on secrecy of voting and ECI instructions on poll day conduct",
+            "consequence": "Attempting to take a photograph of the voting process or of the ballot on the EVM can lead to cancellation of the vote and prosecution under election and criminal laws",
+        },
+        "pwd_rights": {
+            "amf_facilities": [
+                "Barrier-free access with ramps and level surfaces",
+                "Wheelchairs at or near the polling station",
+                "Separate helpdesk for PwD voters where feasible",
+                "Accessible signage and information materials",
+            ],
+            "braille_evm": "Ballot Units have Braille markings against the candidate serial numbers so blind voters can independently use the machine once guided to their button",
+            "priority_queue": "Persons with Disabilities and in many cases very senior citizens are entitled to priority entry so they do not have to wait in long queues",
+            "companion_right": "Visually impaired and infirm voters can bring a companion of their choice inside the voting compartment, whose details are recorded in Form 17A by the Presiding Officer",
+            "saksham_app": "PwD voters can use the Saksham app or call designated numbers to request home visits by BLOs, wheelchairs or transport assistance to reach the polling station",
+        },
+        "booth_agent_rights": {
+            "max_agents_per_candidate": 2,
+            "right_to_challenge": "Polling agents appointed by each contesting candidate may challenge the identity of a voter on reasonable grounds by depositing a challenge fee, after which the Presiding Officer conducts an enquiry",
+            "observation_rights": "Polling agents can observe conduct of the mock poll, sealing of machines, and overall procedure inside the polling station from their designated seats without interfering with voters’ secrecy",
+        },
+        "voting_compartment_secrecy": {
+            "statutory_basis": "Section 128 of the Representation of the People Act, 1951 and Rule 39 and Rule 49M of the Conduct of Elections Rules, 1961",
+            "prohibition": "No one, including polling staff, polling agents, security personnel or accompanying companions, may influence or observe how a voter presses the button on the EVM; any attempt to coerce or photograph is a serious offence",
+        },
+    },
+
+    "evm_vvpat_security": {
+        "hardware_facts": {
+            "standalone_architecture": {
+                "description": "Indian EVMs are self-contained, battery-operated devices consisting of a Control Unit, Ballot Unit and VVPAT printer connected by secure cables, with no capability to connect to any wired or wireless network",
+                "no_connectivity": True,
+                "hardware_interfaces_present": [
+                    "Sealed cable sockets between Control Unit, Ballot Unit and VVPAT",
+                    "No Wi-Fi, Bluetooth, cellular, LAN or Internet modem hardware",
+                    "No externally accessible data or programming ports in polling configuration",
+                ],
+            },
+            "otp_microcontroller": {
+                "description": "The core programme that runs the EVM is burnt into one-time programmable microcontrollers during manufacture and cannot be altered, patched or re-written thereafter",
+                "programmable_after_mfg": False,
+                "manufacturers": [
+                    "Bharat Electronics Limited (BEL)",
+                    "Electronics Corporation of India Limited (ECIL)",
+                ],
+            },
+            "dynamic_key_coding": {
+                "description": "In M3 model EVMs the key-press signals from the Ballot Unit to the Control Unit are dynamically encoded so that the mapping cannot be inferred or spoofed even if the cable is intercepted",
+                "model": "M3 EVMs and subsequent secure variants notified by the Election Commission of India",
+                "purpose": "To prevent any external device from interpreting or injecting button press information in transit between the Ballot Unit and the Control Unit",
+            },
+            "uadm": {
+                "description": "The Unauthorized Access Detection Module is a tamper-detection feature that permanently disables the machine if the casing is opened or internal electronics are disturbed in an unauthorised manner",
+                "trigger": "Breaking of seals or attempts to pry open the Control Unit or Ballot Unit body beyond normal servicing points",
+                "consequence": "Permanent disablement of the affected unit for electoral use, mandatory segregation and reporting, and requirement to replace it with another fully checked machine",
+            },
+            "components": {
+                "control_unit": "The central unit that stores vote data in secure memory, controls enabling of ballots and displays the tally at the time of counting",
+                "ballot_unit": "The unit kept inside the voting compartment containing candidate names, symbols and blue buttons through which the voter records their choice",
+                "vvpat_printer": "The Voter Verifiable Paper Audit Trail device that prints a paper slip whenever a vote is cast and shows it through a window for verification before dropping it into a sealed box",
+            },
+        },
+        "first_level_checking": {
+            "timeline": "Conducted several weeks or months before polling, after machines are allocated to districts and before candidate symbols are loaded",
+            "location": "District EVM warehouses or designated premises with CCTV coverage and security",
+            "execution_authority": "Authorised BEL or ECIL engineers under the supervision of the District Election Officer and in the presence of recognised political party representatives",
+            "party_presence": True,
+            "sample_size": "At least 5 percent of the machines undergo intensive mock poll testing with 1,000 votes each, while all machines are physically inspected and cleared",
+            "mock_votes_per_machine": 1000,
+            "purpose": "To verify that every button works correctly, that no pre-recorded votes exist, and that the electronic result exactly matches the mock votes cast in test runs",
+            "supervised_by": "District Election Officer, General Observer and representatives of recognised political parties, with proper documentation and sealing of cleared machines",
+        },
+        "election_morning_mock_poll": {
+            "timeline": "Held on the morning of poll day, usually about 90 minutes before the scheduled start of voting in each polling station",
+            "location": "Inside each polling station in the presence of the Presiding Officer, polling staff, candidate polling agents and security personnel",
+            "conducted_by": "Presiding Officer and Polling Officers, with mock votes cast by polling agents and staff to demonstrate correct functioning",
+            "minimum_votes": 50,
+            "agents_involved": "Polling agents of all contesting candidates are informed and invited to observe and participate in the mock poll and to note down the votes they cast",
+            "crc_protocol": "Close the mock poll, obtain and verify the result with the mock tally, and then clear the memory so that the machine starts with zero votes when actual polling begins",
+            "sealing_method": "After successful mock poll and clearing, the Control Unit is sealed with paper seals and special pink paper seals signed by polling agents and the Presiding Officer",
+        },
+        "vvpat_audit": {
+            "booths_per_assembly_segment": 5,
+            "selection_method": "Random selection by draw of lots in the presence of candidates or their agents for each Assembly Segment of a Parliamentary Constituency",
+            "process": "On counting day, the VVPAT slips from the selected polling stations are taken out of their boxes and counted manually in front of candidates’ counting agents",
+            "who_counts": "Counting officials under supervision of the Returning Officer and Observers",
+            "tally_against": "The electronic results from the corresponding EVM Control Units are compared with the manual VVPAT slip counts to ensure they match exactly",
+            "legal_mandate": "Supreme Court directions in PUCL v. Union of India and subsequent ECI instructions specifying one VVPAT audit per Assembly Segment, subject to any updated orders",
+        },
+        "burnt_memory_verification_sop_2025": {
+            "source": "Election Commission of India technical and administrative Standard Operating Procedures issued in compliance with Supreme Court directions on EVM verification",
+            "trigger": "A candidate who finished second or third in the constituency requests burnt memory verification within the prescribed time after declaration of result",
+            "eligibility": "Losing candidates in an Assembly Constituency or in an Assembly Segment of a Lok Sabha Constituency, subject to the percentage limit of machines allowed for verification",
+            "scope_ballot_units": 20,
+            "scope_control_units": 10,
+            "process": "Engineers from the EVM manufacturers conduct a detailed technical check of the microcontroller and burnt memory in the presence of candidate representatives, including a fresh mock poll of a specified number of votes where opted, with the entire exercise video-recorded and documented",
+            "documentation": "A report and certificate of verification is prepared for each machine, signed by the engineers, election officials and candidate representatives present, and preserved as part of the election record",
+            "purpose": "To provide an additional layer of confidence that the code and data stored in EVMs used in the election have not been tampered with or altered after manufacture and deployment",
+            "introduced_by": "Supreme Court judgment delivered in 2024 directing the Election Commission of India to provide a structured burnt memory verification facility and the subsequent ECI SOP notified in 2024–2025",
+        },
+        "post_result_storage": {
+            "evm_storage_days": 45,
+            "location": "Secure strong rooms under double lock and CCTV surveillance in the district headquarters or other authorised premises",
+            "capf_guard": True,
+            "vvpat_preservation_period": "1 year",
+            "vvpat_preservation_rule": "Rule 94 of the Conduct of Elections Rules, 1961 requires preservation of VVPAT paper slips for one year for use in any election petition",
+            "election_petition_window": "45 days from the date of declaration of result for filing an election petition in the High Court, during which EVMs remain sealed in strong rooms",
+        },
+        "evm_history": {
+            "prototype_year": 1979,
+            "pilot_year": 1982,
+            "pilot_location": "Parur Assembly Constituency in Kerala, during a by-election",
+            "legal_authorization_year": 1988,
+            "legal_basis": "Insertion of Section 61A into the Representation of the People Act, 1951 authorising the use of voting machines in elections as notified by the Election Commission of India",
+        },
+    },
+
+    "model_code_of_conduct": {
+        "legal_nature": {
+            "is_standalone_statute": False,
+            "enforcement_authority": "Election Commission of India exercising powers under Article 324 of the Constitution of India",
+            "criminal_overlap": True,
+            "criminal_overlap_laws": [
+                "Representation of the People Act, 1951 provisions on corrupt practices and election offences",
+                "Bharatiya Nyaya Sanhita provisions on bribery, intimidation, promoting enmity and related offences",
+            ],
+        },
+        "activation": {
+            "trigger": "Formal announcement of the election schedule by the Election Commission of India in a press conference",
+            "exact_moment": "The precise moment when the Commission announces the dates for polling in a live press event or issues the press note on the schedule",
+            "who_declares": "Election Commission of India through the Chief Election Commissioner or authorised Election Commissioner",
+        },
+        "duration": {
+            "start": "From the time of announcement of election schedule by the Election Commission of India",
+            "end": "Till completion of the election process, including declaration of results and issuance of notification in the Official Gazette",
+            "total_period_typical": "Often 4 to 8 weeks depending on the number of phases and the time between announcement and counting day",
+        },
+        "prohibited_activities": {
+            "govt_announcements": {
+                "description": "The party in power cannot use its official position to announce new schemes, projects or financial grants that could influence voters during the MCC period",
+                "examples": [
+                    "Announcing a new cash transfer scheme just after election dates are declared",
+                    "Laying foundation stones for new public works in a way that highlights the ruling party",
+                    "Offering loan waivers or tax concessions that are clearly timed to elections",
+                ],
+            },
+            "state_machinery": {
+                "description": "Official machinery, premises and staff cannot be used for electioneering by any party or candidate",
+                "specific_bans": [
+                    "Using government vehicles or aircraft for campaign travel except with payment as per ECI norms and without party flags or symbols",
+                    "Using government guest houses or rest houses as party offices or for campaign strategy meetings",
+                    "Publishing advertisements at government cost praising achievements of the ruling party during MCC period",
+                ],
+            },
+            "communal_appeals": {
+                "description": "Appeals to caste, religion, language or community sentiments to secure votes are strictly prohibited under the MCC and may also constitute criminal offences",
+                "statutory_overlap": "Correlates with provisions in the Representation of the People Act, 1951 on corrupt practices and provisions in the Bharatiya Nyaya Sanhita on promoting enmity between groups",
+            },
+            "worship_place_propaganda": {
+                "description": "No political parties or candidates may use places of worship such as temples, mosques, churches or gurudwaras as venues or symbols for campaign propaganda",
+            },
+            "voter_bribery": {
+                "description": "Distribution of money, liquor, gifts, coupons or any material inducement to voters in exchange for votes is forbidden",
+                "statutory_overlap": "Constitutes bribery and treating under election law and general criminal law, punishable with imprisonment and disqualification",
+            },
+            "hate_speech": {
+                "description": "Making speeches that incite hatred or violence against any community, caste, gender or group is prohibited",
+                "statutory_overlap": "Falls under hate speech and promoting enmity offences in criminal law and can attract FIRs, arrests and court proceedings in addition to MCC censure",
+            },
+        },
+        "allowed_activities": [
+            "Continuation of previously sanctioned and ongoing welfare schemes, provided no new beneficiaries are added solely to influence elections and no publicity is made favouring the ruling party",
+            "Criticism of policies, programmes, records and performance of rival parties and candidates in a factual and fair manner without personal attacks on private life or use of inflammatory language",
+            "Routine administrative decisions and day-to-day governance that cannot be postponed, subject to obtaining prior approval from the Election Commission where required",
+            "Internal organisational work of political parties such as internal meetings and member training, so long as government resources are not used",
+        ],
+        "cvigil_enforcement": {
+            "app_name": "cVIGIL",
+            "upload_type": "Live photographs or short videos captured through the app with automatic time stamp and geo-tag",
+            "gallery_upload_allowed": False,
+            "sla_minutes": 100,
+            "who_responds": "Flying Squad Team and Static Surveillance Teams operating under the District Election Officer and Returning Officer",
+            "final_authority": "Returning Officer of the constituency, acting on reports of field teams and Observers",
+            "citizen_update_within_sla": True,
+        },
+        "penalties": {
+            "censure": {
+                "description": "The Election Commission may record a formal warning or censure in writing, asking the party or candidate to desist from similar violations and may publicise the warning",
+            },
+            "campaign_ban": {
+                "description": "For serious or repeated MCC violations, the Commission may bar an individual leader or star campaigner from campaigning for a specified period",
+                "duration_range": "Commonly between 24 hours and 72 hours, but can be longer in egregious cases as decided by the Commission",
+            },
+            "fir": {
+                "trigger": "Where MCC violations also amount to criminal offences such as bribery, hate speech, defacement of property or violence",
+                "laws_invoked": [
+                    "Representation of the People Act, 1951 provisions on bribery, undue influence and personation",
+                    "Bharatiya Nyaya Sanhita provisions on promoting enmity, public mischief and related offences",
+                    "Local laws on defacement of property and public order where applicable",
+                ],
+            },
+            "poll_postponement": {
+                "trigger": "Massive violations or breakdown of law and order, such as large-scale bribery, violence or destruction of EVMs making a free and fair poll impossible on the scheduled day",
+                "rarity": "Used very rarely and only in extreme cases where no other remedy can restore the integrity of the poll",
+            },
+        },
+    },
+
+    "voter_rights": {
+        "franchise_right": {
+            "constitutional_basis": "Article 326 of the Constitution of India establishes universal adult suffrage based on residence, age and non-disqualification",
+            "statutory_basis": "Section 62 of the Representation of the People Act, 1951 provides the statutory right to vote for every person whose name is included in the electoral roll and is not subject to specified disqualifications",
+            "nature": "The right to vote in elections conducted by the Election Commission of India is a statutory right flowing from election law and not a fundamental right, though the freedom to decide whom to vote for forms part of freedom of expression under Article 19(1)(a)",
+            "description": "Every citizen who is 18 or above on the qualifying date, is not disqualified and is enrolled in the electoral roll of a constituency, has the legal right to cast one vote in that constituency in elections to which that roll applies",
+            "practical_implication": "You must ensure that your name is actually present on the electoral roll, because even a valid EPIC without a current roll entry does not confer the right to vote at that polling station",
+            "myth_buster": "Right to vote is not automatically enforceable by writ in the same way as a fundamental right; it is exercised through the procedures laid down in the Representation of the People Acts and Rules",
+        },
+        "secret_ballot": {
+            "legal_basis": "Section 128 of the Representation of the People Act, 1951 and Rule 49M of the Conduct of Elections Rules, 1961 protect the secrecy of voting and penalise its violation",
+            "description": "No one is allowed to know or compel you to reveal which candidate you voted for; polling officials and agents must not attempt to see your vote in the voting compartment",
+            "practical_implication": "You are not required to show your vote to anyone, and you should refuse any request to take a photograph of the EVM screen or to prove how you voted",
+            "myth_buster": "Photographing the EVM or VVPAT, even to ‘prove’ your vote, is not permitted and can attract legal consequences; secrecy is meant to protect you, not to be traded away",
+        },
+        "paid_holiday": {
+            "legal_basis": "Section 135B of the Representation of the People Act, 1951",
+            "scope": "All employees in any business, trade, industrial undertaking or commercial establishment, including daily wage and casual workers, are entitled to a paid holiday on poll day if they are electors for that election",
+            "employer_penalty": "Any employer who does not grant the required paid holiday or makes deductions in wages for absence on poll day can be punished with a fine which may extend to five hundred rupees",
+            "description": "The law ensures that employees do not have to sacrifice their wages in order to exercise the right to vote in Parliamentary or Assembly elections",
+            "practical_implication": "You can insist on a paid holiday or sufficient paid time off on poll day to travel to your polling station and cast your vote; exceptions apply only to categories where absence would endanger life or safety",
+            "myth_buster": "Employers cannot legally threaten to cut your salary for taking time off to vote; if this happens, you can complain to labour authorities and election officials",
+        },
+        "right_to_know_candidates": {
+            "legal_basis": "Union of India v. Association for Democratic Reforms (2002) and subsequent judgments recognising voters’ right to know as part of Article 19(1)(a); Sections 33A and 125A of the Representation of the People Act, 1951 and Form 26 affidavit requirements",
+            "description": "Every voter has a right to know the criminal antecedents, assets, liabilities and educational qualifications of candidates before making a choice",
+            "practical_implication": "You can access candidate affidavits through the KYC (Know Your Candidate) app or other official ECI platforms and take an informed decision instead of relying only on campaign speeches",
+            "myth_buster": "Details of criminal cases or assets are not private secrets of candidates; hiding or lying about them in Form 26 is itself an electoral offence punishable under Section 125A of the Representation of the People Act, 1951",
+        },
+        "nota_right": {
+            "legal_basis": "Peoples Union for Civil Liberties v. Union of India (2013) judgment of the Supreme Court directing inclusion of NOTA option on EVMs and protection of secrecy for negative voting",
+            "veto_power": False,
+            "if_nota_wins_most_votes": "Even if NOTA receives more votes than any individual candidate, the human candidate with the highest number of valid votes among candidates is declared elected",
+            "historical_note": "As of 2026, NOTA has never been officially counted as topping the poll in a way that would trigger any reconsideration of the result; it remains an expression of dissatisfaction without legal veto power",
+            "description": "NOTA allows a voter to reject all candidates on the ballot while still participating in the electoral process and preserving the secrecy of their preference",
+            "practical_implication": "Choosing NOTA may send a political message but will not cause a re-election or cancellation of results in the constituency",
+            "myth_buster": "Contrary to many social media posts, NOTA does not force the Election Commission to hold a fresh election or bar all candidates from re-contesting",
+        },
+        "tendered_vote_right": {
+            "legal_basis": "Rule 42 of the Conduct of Elections Rules, 1961 dealing with tendered votes",
+            "description": "If someone has already cast a vote in your name fraudulently, you still retain the right to cast a tendered vote on paper after the Presiding Officer verifies your identity",
+            "practical_implication": "Insist on speaking to the Presiding Officer and request a tendered ballot if you find that your vote has been wrongly recorded against your name; do not leave the booth silently",
+            "myth_buster": "Your right to vote does not vanish simply because an impersonator reached earlier; the tendered vote mechanism exists to protect you and to provide evidence in case of a legal challenge",
+        },
+        "queue_right": {
+            "legal_basis": "Election Commission instructions read with Conduct of Elections Rules, 1961 on poll hours and queue regulation",
+            "description": "Every voter who is present in the queue at the polling station at the notified closing time has the right to receive a token and cast their vote, even if actual voting continues past the closing time",
+            "practical_implication": "Do not leave the queue if time is running out; once a closing-time token is given, you must be allowed to vote even if it takes an hour or more to finish existing voters in the line",
+            "myth_buster": "Officials cannot close the gate and refuse entry to voters who were standing in line at the correct time just because the clock has passed the closing hour",
+        },
+        "pwdrights": {
+            "legal_basis": "Conduct of Elections Rules, 1961; ECI instructions on Assured Minimum Facilities and Accessible Elections; Rights of Persons with Disabilities Act principles",
+            "description": "Persons with Disabilities are entitled to barrier-free polling stations, priority access, assistance and appropriate information to enable them to vote with dignity",
+            "practical_implication": "You can ask for a wheelchair, a ramp, Braille ballot guide or permission for a companion to assist you in the voting compartment; you can also pre-register through Saksham or other channels for assistance",
+            "myth_buster": "Disability is not a ground to deny voting; if a polling station is inaccessible or refuses reasonable assistance, you can complain to the Observer or through 1950 and NGSP 2.0",
+        },
+        "grievance_right": {
+            "legal_basis": "Election Commission of India’s National Voter Helpline and National Grievance Service Portal framework issued under Article 324 powers",
+            "description": "Every voter has the right to raise complaints about registration, polling arrangements, MCC violations and related issues, and to receive a response within a reasonable time",
+            "practical_implication": "You can dial 1950 or 1800-11-1950, use the Voter Helpline app or lodge a complaint on the NGSP portal and track the status until disposal, including escalation to higher authorities if needed",
+            "myth_buster": "There is no need to know a politician personally to get election problems fixed; structured official channels are available to every voter",
+        },
+    },
+
+    "government_formation": {
+        "lok_sabha_total_seats": 543,
+        "majority_magic_number": 272,
+        "calculation_formula": "Half of 543 rounded down is 271, so 271 plus 1 equals 272 seats for an absolute majority",
+        "single_party_majority_process": "If one party alone wins at least 272 seats, the President normally invites its leader to form the government, appoints that person as Prime Minister and administers the oath of office to the Council of Ministers on the Prime Minister’s advice",
+        "hung_parliament": {
+            "definition": "A situation where no single party or pre-poll alliance commands 272 seats in the Lok Sabha after general elections",
+            "president_discretion": "The President exercises limited constitutional discretion to identify a person who is most likely to command a majority in the House, usually by consulting parties and considering letters of support",
+            "convention_rule": "By convention, the leader of the largest single party or the largest pre-poll or post-poll coalition is first invited to form the government and prove majority on the floor of the House",
+            "who_is_invited_first": "Typically the recognised leader of the largest party or alliance in the new Lok Sabha, subject to the President’s satisfaction about numbers and letters of support",
+            "floor_test_timeline": "The new Prime Minister is usually required to seek and win a vote of confidence within a few days to two weeks of assuming office, as directed by the President or as fixed by the Speaker",
+        },
+        "floor_test": {
+            "definition": "A confidence motion or vote of confidence moved in the Lok Sabha to demonstrate that the Council of Ministers enjoys the support of the majority of members present and voting",
+            "vote_type": "Simple majority of members present and voting, not of the total membership, unless a special constitutional provision applies to a particular motion",
+            "Article_75_basis": "Article 75 states that the Council of Ministers is collectively responsible to the House of the People, which is interpreted to mean that the ministry must always enjoy majority support in the Lok Sabha",
+            "consequence_of_failure": "If the government fails to win the floor test, it is expected to resign immediately; the President may then invite another leader to form a government or, if no combination is viable, dissolve the House and call fresh elections",
+        },
+        "coalition_dynamics": {
+            "definition": "An arrangement in which two or more parties agree to govern together, pooling their Lok Sabha seats to cross the majority mark and sharing ministerial positions based on a negotiated understanding",
+            "common_minimum_program": "Coalition partners often publish a Common Minimum Programme setting out agreed policies and priorities that all partners commit to support in government",
+            "examples_type": "Coalitions may be pre-poll alliances declared before voting or post-poll alliances formed after results, and can range from simple two-party partnerships to broad rainbow coalitions involving many regional parties",
+        },
+        "speaker_role": {
+            "election_by": "The Speaker of the Lok Sabha is elected by the members of the House from among themselves, normally soon after the House first meets after general elections",
+            "anti_defection_adjudication": "Under the Tenth Schedule, the Speaker acts as the authority to decide on disqualification petitions arising from defection or violation of party whips by members",
+            "Tenth_Schedule": "The Tenth Schedule, popularly known as the Anti-Defection Law, lays down grounds on which members who voluntarily give up party membership or disobey whips can be disqualified",
+            "tie_casting_vote": "In the event of a tie on a motion, the Speaker has and may exercise a casting vote to decide the outcome, while normally not voting in the first instance",
+            "merger_exception": "Where at least two-thirds of the members of a legislature party agree to merge with or form a new party, such a merger is treated as an exception to disqualification under the Tenth Schedule",
+        },
+        "cabinet_size_limit": {
+            "Article_75_1A": "Article 75(1A) of the Constitution provides that the total number of Ministers, including the Prime Minister, shall not exceed 15 percent of the total number of members of the House of the People",
+            "max_percentage": "15 percent of the strength of the Lok Sabha is the upper cap for total Council of Ministers at the Union level",
+            "max_ministers_from_543": 81,
+        },
+        "snap_election": {
+            "trigger": "If no leader can form a stable government enjoying majority support, or if a government loses majority and alternatives are exhausted, the President may dissolve the Lok Sabha on the advice of the Prime Minister or at their own discretion within constitutional conventions",
+            "constitutional_basis": "Articles 83 and 85, read with Article 75, allow dissolution of the House before the normal five-year term and calling of early general elections",
+        },
+    },
+
+    "voter_problems_solutions": {
+        "lost_voter_id": {
+            "problem": "The voter has lost, misplaced or severely damaged the physical Elector’s Photo Identity Card",
+            "solution": [
+                "Check your name on the electoral roll using the search facility on the official portal or through the Voter Helpline app or 1950",
+                "If your name is present, remember that you can vote using any one of the 12 approved photo IDs even without EPIC",
+                "If you want a replacement EPIC, submit Form 8 for EPIC replacement through the official portal and upload required documents",
+                "If the card was lost and there is a risk of misuse, file an FIR or diary entry and attach a copy with Form 8 as required by local instructions",
+            ],
+            "form": "Form 8 for EPIC replacement and correction of entries",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Typically 15 to 30 days for the new EPIC to be printed and dispatched after verification",
+            "pro_tip": "Also download the e-EPIC digital PDF once available so that you always have a secure digital copy in addition to the physical card",
+            "common_mistake_to_avoid": "Assuming you cannot vote at all without the physical EPIC and not turning up at the booth even though you have another approved ID and your name on the roll",
+        },
+        "name_deleted": {
+            "problem": "The voter’s name previously existed on the electoral roll but is now missing, often discovered just before or on poll day",
+            "solution": [
+                "Use the official portal or 1950 helpline well before poll day to periodically check that your name is still on the electoral roll",
+                "If you discover deletion before the revision deadline, contact your BLO or ERO immediately with proof and lodge a complaint along with appropriate form as advised",
+                "If the revision schedule is closed, you must file a fresh Form 6 to get re-enrolled in the next cycle, ideally providing any earlier EPIC details to speed up verification",
+                "Track your application status using the reference number on the portal to ensure that it is processed and your name appears in the next publication",
+            ],
+            "form": "Form 6 for re-registration as an elector when name has been deleted",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Generally one revision cycle, often 15 to 30 days but tied to draft and final publication dates",
+            "pro_tip": "Do not wait till the last week before polling to verify your name; check once the final roll for your area is published and again after any correction window",
+            "common_mistake_to_avoid": "Assuming that non-voting in one election automatically deletes your name, or expecting on-the-spot restoration on polling day",
+        },
+        "spelling_mistake": {
+            "problem": "Name, relative’s name or other personal detail is spelt wrongly in the electoral roll or EPIC",
+            "solution": [
+                "Collect a clear document that carries correct spelling such as Aadhaar, passport, PAN card or educational certificate",
+                "Submit Form 8 through the portal with details of the field that needs correction and upload the supporting document",
+                "Carefully fill both English and regional language fields to match the supporting document as closely as possible",
+                "After the correction is approved, verify your entry again in both languages and ensure that your EPIC has been updated, if needed",
+            ],
+            "form": "Form 8 for correction of entries in the electoral roll",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Normally 15 to 30 days, with changes reflected in the next updated roll",
+            "pro_tip": "Consider using the same spelling of your name across all major identity documents to avoid future discrepancies and verification issues",
+            "common_mistake_to_avoid": "Ignoring mistakes in regional language script and discovering them only when EPIC is printed, which then requires another correction cycle",
+        },
+        "wrong_address": {
+            "problem": "The address on the electoral roll is incomplete or inaccurate within the same constituency",
+            "solution": [
+                "Obtain acceptable proof of your correct current address within the constituency such as utility bill, bank statement, rent agreement or property document",
+                "Submit Form 8 and choose the option for shifting of residence within the same constituency, providing the new address and document",
+                "If your polling station is inconvenient, request the BLO and ERO to map you to the nearest appropriate polling station based on the new address",
+                "Cross-check your address and polling station in the updated roll and voter information slip before poll day",
+            ],
+            "form": "Form 8 for shifting of residence within the same constituency",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Normally 15 to 30 days, subject to BLO field verification and roll update cycle",
+            "pro_tip": "Mark your location carefully when interacting with BLO so that your polling station is chosen optimally in terms of distance and accessibility",
+            "common_mistake_to_avoid": "Filing Form 6 instead of Form 8 for within-constituency shifts, which can create duplicates and lead to rejections",
+        },
+        "outdated_photo": {
+            "problem": "The photograph printed on the EPIC is outdated or does not clearly resemble the voter anymore",
+            "solution": [
+                "Take a recent passport-style photograph with a clear frontal face and neutral background",
+                "Submit Form 8 with the option to change photo and upload the new photograph as directed on the portal",
+                "If asked by the ERO, visit the designated centre for live photo capture or further verification",
+                "Once the new EPIC is issued, carry it along with any other ID during polling until officials become familiar with your updated photograph",
+            ],
+            "form": "Form 8 with request for photograph update and EPIC reprint",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Around 15 to 30 days depending on local printing and dispatch arrangements",
+            "pro_tip": "Also download the updated e-EPIC once available so that you can use the clearer digital image where accepted",
+            "common_mistake_to_avoid": "Not updating a drastically outdated photograph, which can cause unnecessary suspicion or delay at the polling station",
+        },
+        "moved_same_state": {
+            "problem": "The voter has shifted residence to a different constituency within the same State",
+            "solution": [
+                "Check whether your new address falls in the same Parliamentary Constituency or a different one within the State",
+                "File Form 6 afresh in the new constituency for inclusion at your new address, giving previous EPIC details so your old entry can be traced",
+                "Inform the ERO or BLO about your earlier enrolment so that deletion can be initiated in the previous constituency through Form 7 or internal processes",
+                "Verify that your name appears in the roll of the new constituency before the next election and is deleted from the old one to avoid duplication",
+            ],
+            "form": "Form 6 for fresh enrolment in the new constituency, with ERO-initiated deletion of old entry",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "One revision cycle in the new constituency and deletion processing in the old constituency",
+            "pro_tip": "Do not keep voting in your old city once you have permanently shifted; update your enrolment so that your polling station is closer to your new residence",
+            "common_mistake_to_avoid": "Assuming that your name will automatically move from the old constituency to the new one without filing any application",
+        },
+        "moved_different_state": {
+            "problem": "The voter has migrated to a new State and wants to vote from the new place of residence",
+            "solution": [
+                "Collect fresh proof of residence in the new State such as rent agreement, utility bill or employer certificate",
+                "File Form 6 in the constituency of the new address through the portal and provide previous EPIC details where asked",
+                "Once enrolled in the new State, the old entry will be removed by the earlier ERO after due process so that you do not appear in two rolls",
+                "Before poll day in the new State, confirm your polling station details using the official portal or Voter Helpline app",
+            ],
+            "form": "Form 6 for new enrolment in the new State",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "One revision cycle in the new State after BLO verification",
+            "pro_tip": "Update your enrolment soon after settling in the new State rather than waiting until an election is announced, when timelines are tighter",
+            "common_mistake_to_avoid": "Travelling back across States to vote from your old address despite permanent relocation instead of updating your enrolment properly",
+        },
+        "first_time_voter": {
+            "problem": "A citizen turning 18 wants to understand how to register and vote in their first election",
+            "solution": [
+                "Track your 18th birthday against the four qualifying dates and apply through Form 6 when you are 17 plus and eligible for advance filing under the latest rules",
+                "Use the official portal to fill Form 6, upload required age and address documents and submit your application in time for the next revision",
+                "Check status regularly and verify your name once the draft and final rolls for your area are published",
+                "Note your polling station, understand the approved ID list and plan to vote on polling day using your EPIC or another acceptable ID",
+            ],
+            "form": "Form 6 for first-time voter registration",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Typically 15 to 30 days and aligned with publication of updated rolls before elections",
+            "pro_tip": "Use the Voter Helpline app and SVEEP materials in your college or community to learn about ethical, informed voting and avoid falling for fake news",
+            "common_mistake_to_avoid": "Waiting until the announcement of election dates to start registration, by which time the roll may already be frozen for that election",
+        },
+        "nri_registration": {
+            "problem": "An eligible Indian citizen living abroad wants to register as an overseas elector",
+            "solution": [
+                "Verify that you have not acquired foreign citizenship and that your passport address in India is correct and up to date",
+                "Fill Form 6A online via the official portal, entering passport details exactly as printed and uploading required copies",
+                "If applying by post, ensure that copies of passport and visa are attested by an authorised officer of the Indian Mission or Consulate",
+                "Track the application status and confirm enrolment, remembering that you must be physically present in your home constituency in India on poll day to vote with your passport as ID",
+            ],
+            "form": "Form 6A for overseas elector registration",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Usually 15 to 30 days, depending on time taken for verification by ERO and BLO",
+            "pro_tip": "Plan your travel to India around the polling date for your constituency if you wish to actually vote as an NRI elector",
+            "common_mistake_to_avoid": "Assuming that registration as an overseas elector automatically enables online voting or postal ballots from abroad, which is not presently permitted",
+        },
+        "objecting_to_registration": {
+            "problem": "A citizen believes that a particular entry on the roll is bogus, duplicate or ineligible and wants it removed",
+            "solution": [
+                "Gather as many particulars as possible about the entry, such as EPIC number, part number, serial number and full name and address as printed on the roll",
+                "Submit Form 7 via the official portal stating clearly whether you seek deletion or objection and on what grounds, and attach supporting evidence where available",
+                "Cooperate with BLO or ERO if they need further information and attend any hearing if you are called upon to substantiate the objection",
+                "Check subsequent roll publications to see whether the entry has been deleted or corrected after due process",
+            ],
+            "form": "Form 7 for objection to inclusion or application for deletion of a name",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Usually 15 to 30 days, including notice and verification steps",
+            "pro_tip": "Use objection powers responsibly; targeting individuals based on political disagreement rather than legal ineligibility can backfire and attract penalties",
+            "common_mistake_to_avoid": "Expecting instant deletion without notice or verification; the ERO must protect the rights of the person whose name is being challenged",
+        },
+        "inaccessible_booth": {
+            "problem": "The allotted polling station is physically inaccessible for a wheelchair user, elderly voter or PwD",
+            "solution": [
+                "In advance of elections, update your roll entry using Form 8 to mark yourself as a Person with Disability where applicable and indicate any specific needs",
+                "Use the Saksham app or designated contact to request wheelchair, ramp access or transport assistance to and from the polling station",
+                "If on poll day you find the station inaccessible, immediately bring it to the attention of the Presiding Officer and the General Observer or contact 1950 from outside the station",
+                "If the problem persists, lodge a detailed grievance on NGSP 2.0 so that the issue is addressed for future elections and possibly through relocation or infrastructure upgrades",
+            ],
+            "form": "Form 8 for PwD marking along with use of Saksham app for services",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "PwD marking in the roll typically takes one revision cycle; specific transport or wheelchair assistance on poll day depends on local arrangements but should be pre-requested in time",
+            "pro_tip": "Engage early with local election machinery if your area has difficult terrain or building design so that corrective measures can be planned before poll day",
+            "common_mistake_to_avoid": "Waiting until the last hour on polling day to raise accessibility concerns, when rearrangements are harder to implement",
+        },
+        "epic_not_received": {
+            "problem": "The voter’s name is included in the electoral roll but the physical EPIC has not yet been delivered",
+            "solution": [
+                "Confirm through the official portal or 1950 that your application has been approved and that your name appears in the roll",
+                "Use any one of the 12 approved photo ID documents to vote on poll day, as EPIC is not compulsory if the name is on the roll",
+                "Check whether you are eligible to download e-EPIC using the portal or Voter Helpline app and download it as a digital voter ID",
+                "If the physical EPIC does not arrive even long after approval, raise a complaint with the ERO or through NGSP 2.0 so that dispatch issues are resolved",
+            ],
+            "form": "No separate form is required for voting; Form 8 can be used if any details need correction before EPIC is printed",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Physical printing and dispatch of EPIC may take a few weeks after approval; e-EPIC is generally available much earlier in digital form",
+            "pro_tip": "Do not treat non-receipt of EPIC as a bar to voting; your presence on the electoral roll plus an approved photo ID is what ultimately matters at the booth",
+            "common_mistake_to_avoid": "Assuming you are not allowed to vote without EPIC and skipping the election instead of carrying another approved ID",
+        },
+        "name_not_on_roll_on_poll_day": {
+            "problem": "A person reaches the polling station on poll day and realises that their name is not present on the electoral roll copy used at the booth",
+            "solution": [
+                "Ask the polling staff to help you check carefully across the full part of the roll and verify that your name is indeed absent and not just missed in a cursory look",
+                "If your name is absent, understand that you cannot be allowed to vote in that election even if you show an old EPIC or other ID",
+                "Make a note of your details and later file Form 6 or Form 8 as appropriate through the official portal to secure your enrolment for future elections",
+                "Use 1950 and NGSP 2.0 to lodge a complaint if you had previously verified your name in the final roll but still find it missing at the booth so that the matter can be examined",
+            ],
+            "form": "Form 6 or Form 8, depending on whether you are applying afresh or for correction in the next revision cycle",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Next revision cycle; no on-the-spot inclusion is allowed on poll day",
+            "pro_tip": "Always check your name in the final roll well before polling day instead of relying only on voter information slips or assumptions based on past elections",
+            "common_mistake_to_avoid": "Insisting that polling staff somehow ‘add’ your name on the spot, which they are legally prohibited from doing",
+        },
+        "impersonation_at_booth": {
+            "problem": "A voter is told that a vote has already been recorded in the machine against their name when they arrive at the polling station",
+            "solution": [
+                "Immediately insist on meeting the Presiding Officer and explain the situation calmly, presenting your ID and any previous EPIC if relevant",
+                "Request that the Presiding Officer verify your identity thoroughly and record a challenge or objection to the earlier vote",
+                "If the Presiding Officer is satisfied that you are the genuine elector, insist on your right to cast a tendered vote as per Rule 42 of the Conduct of Elections Rules, 1961",
+                "After the election, if you believe impersonation was systematic, share details with the Returning Officer, Observers and through NGSP for further investigation and possible election petition",
+            ],
+            "form": "No external form is required at the booth; the Presiding Officer will use the tendered vote list and tendered ballot papers",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Tendered vote is recorded immediately at the polling station; its legal effect, if any, is considered only if an election petition is filed",
+            "pro_tip": "Do not leave the polling station quietly when faced with impersonation; tendered vote is your safeguard and evidence for later legal scrutiny",
+            "common_mistake_to_avoid": "Engaging in heated arguments with polling staff or agents instead of insisting on formal tendered vote procedure under supervision of the Presiding Officer",
+        },
+        "want_to_report_mcc_violation": {
+            "problem": "A voter witnesses distribution of cash, liquor, gifts, hate speech or illegal posters during the MCC period and wants to report it",
+            "solution": [
+                "Install and open the cVIGIL app on your smartphone during the election period for your area, ensuring GPS and camera access are enabled",
+                "Capture live photo or short video evidence of the violation directly through the app (not from the gallery) so that time and location are automatically recorded",
+                "Briefly describe the incident in the complaint field and submit it through the app, after which you will receive a tracking ID",
+                "Monitor the status through the app as the Flying Squad Team is dispatched and the Returning Officer takes action within the 100 minute service window; additionally, you can call 1950 for related complaints",
+            ],
+            "form": "No physical form; complaint is recorded through cVIGIL app or through Voter Helpline app or NGSP 2.0 portal",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Field response target is within 100 minutes for cVIGIL complaints and within around 48 hours for general grievances on NGSP 2.0",
+            "pro_tip": "Ensure that you remain safe while recording violations and avoid confrontation; your role is to report, not to physically intervene",
+            "common_mistake_to_avoid": "Uploading old or forwarded images from your phone gallery into cVIGIL; such complaints are rejected because only live, geo-tagged media are accepted",
+        },
+        "employer_denied_paid_holiday": {
+            "problem": "An employer refuses to grant a paid holiday or threatens wage cuts if employees take time off to vote on poll day",
+            "solution": [
+                "Politely inform the employer that Section 135B of the Representation of the People Act, 1951 requires grant of a paid holiday to every elector employed in any business, trade, industrial undertaking or commercial establishment on poll day for the relevant constituency",
+                "If the employer persists, document the refusal and contact the local labour department, District Election Officer or Returning Officer with details of the establishment and the nature of violation",
+                "Call 1950 or 1800-11-1950 to register the complaint and obtain a reference number, and follow up through NGSP 2.0 if needed",
+                "Encourage affected co-workers to also file complaints so that the pattern is clearly established and appropriate legal action can be initiated against the employer",
+            ],
+            "form": "No special election form; complaints can be made through grievance channels and labour authorities",
+            "portal": "https://voters.eci.gov.in",
+            "processing_time": "Investigation and action can take several days, but serious violations may be prioritised during elections",
+            "pro_tip": "If you work far from the constituency where you are enrolled, communicate with your employer well before poll day to plan your travel and leave so that both work and voting are respected",
+            "common_mistake_to_avoid": "Assuming that casual or daily wage workers are excluded from the protection of Section 135B; they are explicitly covered and entitled to wages for the polling day",
+        },
+    },
+
+    "election_officials": {
+        "cec_and_ecs": {
+            "role_title": "Chief Election Commissioner and Election Commissioners",
+            "authority_basis": "Article 324 of the Constitution of India",
+            "jurisdiction": "Nationwide superintendence, direction and control of elections to Parliament, State Legislatures and the offices of President and Vice President",
+            "key_responsibilities": [
+                "Announcing election schedules, phases and poll dates",
+                "Issuing Model Code of Conduct and other guidelines",
+                "Allocating symbols and registering political parties",
+                "Supervising EVM and VVPAT deployment, security and audits",
+                "Appointing Observers and exercising disciplinary control over deputed staff",
+            ],
+            "citizen_contact_scenario": "Ordinary citizens rarely contact the Commission directly; instead, they rely on orders, press notes and public messages issued by the Commission and use subordinate offices for grievances",
+            "reports_to": "The Commission is an independent constitutional body and does not report to the executive or legislature for its core functions",
+            "appointed_by": "The President of India appoints the Chief Election Commissioner and Election Commissioners",
+        },
+        "state_ceo": {
+            "role_title": "Chief Electoral Officer of the State or Union Territory",
+            "authority_basis": "Section 13A of the Representation of the People Act, 1950 and notifications of the Election Commission of India",
+            "jurisdiction": "Entire State or Union Territory for which the CEO is appointed",
+            "key_responsibilities": [
+                "Coordinating election preparedness, logistics and law and order across districts",
+                "Overseeing revision of electoral rolls and ensuring accuracy in the State",
+                "Disseminating SVEEP and voter education programmes",
+                "Training field officials and managing EVM and VVPAT storage and movement within the State",
+                "Serving as key liaison between ECI and State government departments",
+            ],
+            "citizen_contact_scenario": "Citizens may contact the CEO’s office for high-level complaints about enrolment issues, polling arrangements or MCC violations that are not resolved at district level",
+            "reports_to": "Election Commission of India for election functions and State Government for service matters",
+            "appointed_by": "Election Commission of India in consultation with the State Government",
+        },
+        "deo": {
+            "role_title": "District Election Officer",
+            "authority_basis": "Section 13AA of the Representation of the People Act, 1950 and ECI directions",
+            "jurisdiction": "A district, which may contain one or more Parliamentary and Assembly Constituencies",
+            "key_responsibilities": [
+                "Acting as overall in-charge of election management in the district",
+                "Managing First Level Checking of EVMs and VVPATs in the district warehouses",
+                "Coordinating with police and administration to ensure peaceful polling",
+                "Setting up strong rooms and counting centres and maintaining their security",
+                "Supervising the work of Returning Officers and Electoral Registration Officers within the district",
+            ],
+            "citizen_contact_scenario": "Citizens may approach the DEO when serious local issues such as inaccessible polling stations, large-scale MCC violations or law and order threats are not addressed at lower levels",
+            "reports_to": "Chief Electoral Officer for election work and to the State Government for administrative hierarchy",
+            "appointed_by": "State Government in consultation with the Election Commission of India, usually the District Magistrate or Collector is designated as DEO",
+        },
+        "ro": {
+            "role_title": "Returning Officer",
+            "authority_basis": "Section 21 of the Representation of the People Act, 1951 and ECI notification appointing Returning Officers",
+            "jurisdiction": "A specific Parliamentary Constituency or Assembly Constituency",
+            "key_responsibilities": [
+                "Receiving, scrutinising and deciding on nominations of candidates",
+                "Allowing withdrawals and publishing the list of contesting candidates and symbols",
+                "Supervising polling in all stations within the constituency",
+                "Superintending counting of votes and declaration of result",
+                "Issuing the Certificate of Election to the returned candidate",
+            ],
+            "citizen_contact_scenario": "Candidates and their agents interact closely with the RO for nomination, symbol allotment, counting procedures and recount requests; voters may approach the RO for escalated grievances about polling in the constituency",
+            "reports_to": "District Election Officer and ultimately the Election Commission of India",
+            "appointed_by": "Election Commission of India in consultation with the State Government, usually from among senior administrative officers",
+        },
+        "aro": {
+            "role_title": "Assistant Returning Officer",
+            "authority_basis": "Section 22 of the Representation of the People Act, 1951",
+            "jurisdiction": "Portions of a Parliamentary or Assembly Constituency as assigned by the Returning Officer",
+            "key_responsibilities": [
+                "Assisting the Returning Officer in receiving and scrutinising nominations",
+                "Carrying out tasks delegated by the RO such as dispatching polling teams and materials",
+                "Supervising polling and counting arrangements in designated segments",
+                "Ensuring compliance with ECI instructions in their assigned area",
+            ],
+            "citizen_contact_scenario": "Candidates and parties may interact with AROs for ward-level nomination details, and citizens may approach them for clarification on polling station arrangements in specific parts of the constituency",
+            "reports_to": "Returning Officer of the constituency",
+            "appointed_by": "Election Commission of India on the recommendation of the State Government and DEO",
+        },
+        "ero": {
+            "role_title": "Electoral Registration Officer",
+            "authority_basis": "Section 13B of the Representation of the People Act, 1950",
+            "jurisdiction": "One or more Assembly Constituency segments for the purpose of preparing and revising electoral rolls",
+            "key_responsibilities": [
+                "Receiving and deciding all claims and objections to the electoral roll including Forms 6, 6A, 6B, 7 and 8",
+                "Ensuring that roll revision is carried out accurately and on time as per ECI schedule",
+                "Supervising Booth Level Officers and other staff engaged in field verification and data entry",
+                "Publishing draft and final electoral rolls and hearing related objections",
+            ],
+            "citizen_contact_scenario": "Citizens directly approach the ERO or their office for issues with enrolment, corrections, deletions and complaints about roll accuracy",
+            "reports_to": "District Election Officer and Chief Electoral Officer",
+            "appointed_by": "Election Commission of India in consultation with the State Government, typically from the cadre of Sub-Divisional Magistrates or equivalent officers",
+        },
+        "blo": {
+            "role_title": "Booth Level Officer",
+            "authority_basis": "Election Commission of India’s guidelines on appointment of Booth Level Officers",
+            "jurisdiction": "A small area corresponding to part of an electoral roll and the catchment area of a particular polling station",
+            "key_responsibilities": [
+                "Conducting door-to-door verification during roll revision and continuous updation",
+                "Delivering Voter Information Slips and helping voters locate their polling stations",
+                "Assisting citizens in filling and submitting forms for enrolment, correction or deletion",
+                "Acting as the first local contact point between voters and election machinery",
+            ],
+            "citizen_contact_scenario": "Voters contact BLOs for help with forms, to confirm their names on the roll and to clarify polling station information in their neighbourhood",
+            "reports_to": "Electoral Registration Officer and Assistant Electoral Registration Officer",
+            "appointed_by": "District Election Officer or ERO from among local government staff, teachers or other approved categories of employees",
+        },
+        "presiding_officer": {
+            "role_title": "Presiding Officer",
+            "authority_basis": "Conduct of Elections Rules, 1961 and ECI appointment orders",
+            "jurisdiction": "One polling station or a group of small polling stations as notified",
+            "key_responsibilities": [
+                "Conducting the mock poll on poll morning and ensuring machines are sealed properly",
+                "Maintaining order inside the polling station and ensuring secrecy of voting",
+                "Handling challenged votes, tendered votes and complaints from voters and agents",
+                "Completing all statutory forms including Form 17A and the Presiding Officer’s diary and sealing and dispatching EVMs and papers to the collection centre after poll",
+            ],
+            "citizen_contact_scenario": "Voters should ask to meet the Presiding Officer if they face denial of entry, impersonation issues, demands for invalid IDs or any procedural difficulty inside the polling station",
+            "reports_to": "Returning Officer and Sector Officers within the constituency",
+            "appointed_by": "District Election Officer or Returning Officer from approved categories of government and public sector staff",
+        },
+        "polling_officers": {
+            "role_title": "Polling Officers",
+            "authority_basis": "Conduct of Elections Rules, 1961 and ECI instructions",
+            "jurisdiction": "Assigned polling station where they assist the Presiding Officer",
+            "key_responsibilities": [
+                "Checking voter identities against the roll and issuing voter slips",
+                "Applying indelible ink and recording entries in Form 17A",
+                "Operating the Control Unit of the EVM under the direction of the Presiding Officer",
+                "Guiding voters in queue management and basic booth navigation while preserving secrecy",
+            ],
+            "citizen_contact_scenario": "Voters primarily interact with Polling Officers for identification, roll verification, ink marking and activation of the EVM for voting",
+            "reports_to": "Presiding Officer of the polling station",
+            "appointed_by": "District Election Officer and Returning Officer from eligible staff categories",
+        },
+        "observer": {
+            "role_title": "Election Observer",
+            "authority_basis": "Section 20B of the Representation of the People Act, 1951 and Election Commission of India’s powers under Article 324",
+            "jurisdiction": "Assigned Parliamentary or Assembly Constituency or group of constituencies",
+            "key_responsibilities": [
+                "Monitoring overall conduct of elections in the assigned area and reporting directly to the Election Commission",
+                "Scrutinising MCC implementation and responding to serious complaints from parties and citizens",
+                "Overseeing sensitive operations such as EVM strong room security, counting and re-poll recommendations",
+                "Interacting with DEOs, ROs and police to ensure neutrality and fairness",
+            ],
+            "citizen_contact_scenario": "Citizens and parties may approach Observers during scheduled visits or through formal appointments to raise serious concerns about bias or gross irregularities",
+            "reports_to": "Election Commission of India, independent of State Government control for election purposes",
+            "appointed_by": "Election Commission of India, usually from senior IAS, IPS, IRS and other All India and Central Services",
+        },
+        "micro_observer": {
+            "role_title": "Micro Observer",
+            "authority_basis": "Election Commission of India’s instructions on micro observers for critical and vulnerable polling stations",
+            "jurisdiction": "Specific critical or vulnerable polling stations assigned within a constituency",
+            "key_responsibilities": [
+                "Closely observing poll processes including mock poll, sealing, identification and voting at sensitive locations",
+                "Reporting any irregularities or undue influence directly to the General Observer",
+                "Providing an independent assessment of whether free and fair polling took place in their station",
+            ],
+            "citizen_contact_scenario": "Voters will usually recognise micro observers as additional central government staff present in sensitive booths; they may bring issues discreetly to their notice if local staff appear compromised",
+            "reports_to": "General Observer for the constituency",
+            "appointed_by": "Election Commission of India from among central government and PSU employees not belonging to the State cadre",
+        },
+        "expenditure_observer": {
+            "role_title": "Expenditure Observer",
+            "authority_basis": "Section 20B of the Representation of the People Act, 1951 and detailed ECI expenditure monitoring instructions",
+            "jurisdiction": "One or more constituencies in a State for the purpose of monitoring campaign expenditure",
+            "key_responsibilities": [
+                "Supervising the tracking of candidates’ and parties’ expenditure through Shadow Observation Registers and inspection of accounts",
+                "Coordinating Flying Squads and Static Surveillance Teams in detecting illegal cash, liquor and gift distribution",
+                "Advising on seizure and release of suspicious consignments linked to election inducements",
+                "Scrutinising candidates’ final expenditure statements and reporting serious discrepancies to the Commission",
+            ],
+            "citizen_contact_scenario": "Citizens may indirectly benefit by reporting cash or gift distribution to cVIGIL and local teams, which are under the oversight of Expenditure Observers",
+            "reports_to": "Election Commission of India through the Chief Electoral Officer",
+            "appointed_by": "Election Commission of India from among officers of the Indian Revenue Service and other central services with financial expertise",
+        },
+    },
+
+    "digital_portals": {
+        "main_portal": {
+            "name": "Voter Services Portal",
+            "url_or_contact": "https://voters.eci.gov.in",
+            "purpose": "Single unified portal for enrolling as a voter, correcting entries, deleting names, authenticating details and searching the electoral roll",
+            "key_features": [
+                "Online submission of Forms 6, 6A, 6B, 7 and 8",
+                "Electoral roll search by EPIC number or by name and address",
+                "Download of voter information such as part and serial number and polling station location",
+                "Track Application Status for all submitted forms and requests",
+            ],
+            "availability": "Accessible round the year with enhanced campaigns during revision and election periods",
+        },
+        "national_helpline": {
+            "name": "National Voter Helpline",
+            "url_or_contact": "Toll-free numbers 1950 and 1800-11-1950",
+            "purpose": "Telephone helpline for voter registration queries, polling information, complaints and feedback",
+            "key_features": [
+                "Interactive voice response system in major languages",
+                "Human operators to answer queries and register complaints",
+                "Issuance of complaint reference numbers with tracking",
+                "Linkage to State and District Contact Centres and NGSP 2.0",
+            ],
+            "availability": "Typically 8:00 AM to 8:00 PM on all working days and extended hours during election periods",
+        },
+        "cvigil_app": {
+            "name": "cVIGIL Mobile Application",
+            "url_or_contact": "Smartphone app available through official app stores",
+            "purpose": "To empower citizens to report Model Code of Conduct and expenditure violations with live, geo-tagged evidence",
+            "key_features": [
+                "Live photo and video capture with automatic time stamp and location tagging",
+                "In-app categorisation of complaint type and description fields",
+                "Forwarding of complaints to the nearest Flying Squad Team and Returning Officer",
+                "Updates on action taken, with a target response time of 100 minutes",
+            ],
+            "availability": "Operational during active MCC period in the citizen’s constituency",
+        },
+        "e_epic": {
+            "name": "e-EPIC Digital Voter ID Service",
+            "url_or_contact": "Module within https://voters.eci.gov.in and Voter Helpline app",
+            "purpose": "To enable eligible electors to download a secure, non-editable PDF version of their EPIC",
+            "key_features": [
+                "e-EPIC download by EPIC number or form reference number after OTP or e-KYC verification",
+                "Digitally signed QR code for authentication of the digital card",
+                "Option to store the PDF on mobile devices or in DigiLocker",
+                "Availability for newly enrolled voters soon after their details are updated in the roll",
+            ],
+            "availability": "Available to electors whose mobile number is linked and verified in the electoral roll database",
+        },
+        "kyc_app": {
+            "name": "Know Your Candidate (KYC) Module",
+            "url_or_contact": "KYC functionality within ECINET and dedicated KYC-ECI mobile applications",
+            "purpose": "To give voters easy access to candidates’ Form 26 affidavits including criminal cases, assets, liabilities and educational qualifications",
+            "key_features": [
+                "Search by constituency and election to view candidate lists",
+                "Display of key affidavit fields in user-friendly format",
+                "Links to full affidavit documents where available",
+                "Sorting and filtering tools for comparing candidates on specific attributes",
+            ],
+            "availability": "Primarily during election periods when nomination and scrutiny are completed; data remains accessible as an archive for some time after elections",
+        },
+        "saksham_app": {
+            "name": "Saksham-ECI Application for PwD Voters",
+            "url_or_contact": "Mobile application and call-based service for Persons with Disabilities",
+            "purpose": "To simplify voter registration, marking and service requests for Persons with Disabilities and very senior citizens",
+            "key_features": [
+                "Registration of PwD electors with essential details and EPIC numbers where available",
+                "Home visits by BLOs for form filling and verification when requested",
+                "Option to request wheelchairs, transport assistance and other facilities at polling stations",
+                "Information on accessible polling stations and contact details of election officials",
+            ],
+            "availability": "Available year-round, with special campaigns and outreach ahead of elections",
+        },
+        "voter_helpline_app": {
+            "name": "Voter Helpline Mobile Application",
+            "url_or_contact": "Official ECI mobile app downloadable from app stores",
+            "purpose": "To offer a single citizen-friendly interface for electoral search, registration, complaints and information",
+            "key_features": [
+                "Search your name in the draft and final electoral rolls",
+                "Submit registration and correction forms through integrated portal access",
+                "Raise and track grievances routed to NGSP 2.0",
+                "Access FAQs on voter registration, EVMs, results and election processes",
+            ],
+            "availability": "Available throughout the year with periodic updates and new features announced by ECI",
+        },
+        "ngsp_portal": {
+            "name": "National Grievance Service Portal (NGSP 2.0)",
+            "url_or_contact": "Online grievance portal linked from https://voters.eci.gov.in and ECI interfaces",
+            "purpose": "To register, route and track election-related complaints from voters, parties and other stakeholders",
+            "key_features": [
+                "Structured complaint forms with categories such as enrolment, MCC, polling and counting",
+                "Unique grievance ID generation and status tracking",
+                "Escalation workflows from local officers to higher authorities when necessary",
+                "Integration with National and State Contact Centres and ECI dashboards",
+            ],
+            "availability": "Open for registration and tracking of complaints across the election cycle, with heightened monitoring during active election periods",
+        },
+        "track_application": {
+            "name": "Track Application Status Service",
+            "url_or_contact": "Tracking module on https://voters.eci.gov.in",
+            "purpose": "To allow applicants to check the real-time status of their submitted forms for enrolment, correction, deletion or Aadhaar authentication",
+            "key_features": [
+                "Search by application reference ID or EPIC number",
+                "Display of current processing stage such as received, under BLO verification, under ERO decision or accepted",
+                "Notifications on approval or rejection with basic reasons",
+                "Guidance on next steps if the application is rejected or kept pending",
+            ],
+            "availability": "Available continuously for all applications filed through the portal or integrated channels",
+        },
+        "eci_social_media": {
+            "name": "ECI Social Media Outreach Channels",
+            "url_or_contact": "Official handles on major social media platforms such as X, Facebook, Instagram and YouTube",
+            "purpose": "To disseminate timely voter education content, myth-busting messages and official announcements",
+            "key_features": [
+                "Short videos explaining registration, EVMs, MCC, SVEEP and other topics",
+                "Graphics and posts debunking common election-related rumours and misinformation",
+                "Live streams of key press conferences and events",
+                "Interactive campaigns encouraging voter participation and ethical voting",
+            ],
+            "availability": "Active throughout the year, with more intensive campaigns in the run-up to major elections",
+        },
+    },
+
+    "myths_vs_reality": {
+        "vote_without_voter_id": {
+            "myth": "If I forget or lose my voter ID card on polling day, I cannot vote even if my name is on the voter list.",
+            "reality": "If your name is on the electoral roll for that polling station, you can vote by showing any one of the 12 approved alternative photo identity documents such as Aadhaar, passport or driving licence.",
+            "legal_basis": "Election Commission of India instructions on alternative photo identity documents and electoral roll-based entitlement to vote under Section 62 of the Representation of the People Act, 1951",
+            "category": "Polling_Day",
+        },
+        "voter_slip_valid_id": {
+            "myth": "The Voter Information Slip delivered to my house is itself a valid ID proof for voting.",
+            "reality": "The Voter Information Slip is only for convenience to show your part and serial number and polling station; you still need EPIC or one of the 12 approved photo IDs for identification.",
+            "legal_basis": "Election Commission of India directions clarifying that Voter Information Slips are not identity documents and that photo ID is mandatory unless exempted for specific remote areas",
+            "category": "Polling_Day",
+        },
+        "evm_wifi_hack": {
+            "myth": "EVMs can be hacked over Wi-Fi, Bluetooth or the Internet from anywhere in the world.",
+            "reality": "Indian EVMs are standalone, battery-operated devices with no Wi-Fi, Bluetooth, cellular or internet hardware and no external ports, so they cannot be remotely accessed or hacked through networks.",
+            "legal_basis": "Election Commission of India technical FAQs and public demonstrations; statutory backing via Section 61A of the Representation of the People Act, 1951 for authorised voting machines",
+            "category": "EVM",
+        },
+        "form7_on_poll_day": {
+            "myth": "If my name is missing from the roll, I can just fill Form 7 at the booth on polling day and still be allowed to vote.",
+            "reality": "Form 7 is only for objecting to or deleting entries during revision periods; there is no system to add your name or permit voting by filling any form on polling day if you are not already on the roll.",
+            "legal_basis": "Sections 22 and 23 of the Representation of the People Act, 1950 and Registration of Electors Rules, 1960 which require that electoral rolls remain frozen during polling and nomination phases",
+            "category": "Registration",
+        },
+        "nota_cancels_election": {
+            "myth": "If NOTA gets more votes than all candidates, the election is automatically cancelled and held again with new candidates.",
+            "reality": "NOTA has no veto power; even if it gets more votes than any candidate, the human candidate with the highest valid votes is declared elected and no automatic re-poll is ordered.",
+            "legal_basis": "Peoples Union for Civil Liberties v. Union of India (2013) which introduced NOTA as an option but did not grant it the status of a candidate or provide for re-election when NOTA leads",
+            "category": "NOTA",
+        },
+        "aadhaar_mandatory_for_roll": {
+            "myth": "My name will be deleted from the electoral roll if I do not link my Aadhaar using Form 6B.",
+            "reality": "Aadhaar linkage through Form 6B is voluntary; the rules explicitly prohibit deleting a voter’s name solely for not submitting Aadhaar details.",
+            "legal_basis": "Rule 26A of the Registration of Electors Rules, 1960 as amended in 2022 states that no entry in the electoral roll shall be deleted only for failure to furnish Aadhaar number or alternatives",
+            "category": "Registration",
+        },
+        "prisoner_can_vote": {
+            "myth": "All prisoners can vote because voting is a fundamental right for every citizen.",
+            "reality": "Persons confined in prison or in police custody are not allowed to vote in elections, except those under preventive detention, as specifically restricted by law.",
+            "legal_basis": "Section 62(5) of the Representation of the People Act, 1951 which disqualifies persons confined in prison or lawful police custody from voting, subject to specified exceptions",
+            "category": "Rights",
+        },
+        "nri_cannot_vote": {
+            "myth": "NRIs can never vote in Indian elections unless they give up their foreign residence and come back permanently.",
+            "reality": "Eligible Indian citizens residing abroad who have not acquired foreign citizenship can register as overseas electors using Form 6A and vote in person at their home constituency in India on poll day.",
+            "legal_basis": "Section 20A of the Representation of the People Act, 1950 and related rules providing for overseas electors; Section 62 of the Representation of the People Act, 1951 on right to vote",
+            "category": "Rights",
+        },
+        "spelling_error_stops_vote": {
+            "myth": "If there is even a small spelling mistake in my name on the roll, I will not be allowed to vote.",
+            "reality": "Minor spelling or transliteration errors that do not cast doubt on your identity do not prevent you from voting if the Presiding Officer is satisfied that you are the same person listed on the roll.",
+            "legal_basis": "Conduct of Elections Rules, 1961 and ECI instructions to Presiding Officers to ignore minor discrepancies when the identity of the elector is otherwise clearly established",
+            "category": "Polling_Day",
+        },
+        "vvpat_destroyed": {
+            "myth": "VVPAT slips are destroyed immediately after counting so that there is no paper record available for verification.",
+            "reality": "VVPAT slips are preserved in sealed covers for one year under Rule 94 of the Conduct of Elections Rules, 1961 so that they are available in case of election petitions or court-ordered verification.",
+            "legal_basis": "Rule 94 of the Conduct of Elections Rules, 1961 on preservation of election papers and ECI instructions on storage of VVPAT slips in strong rooms",
+            "category": "EVM",
+        },
+        "aadhaar_replaces_roll_name": {
+            "myth": "Once my Aadhaar is linked, I can vote anywhere using only Aadhaar even if my name is not on the local electoral roll.",
+            "reality": "You can vote only in the polling station corresponding to the electoral roll where your name is enrolled; Aadhaar is at best one of the acceptable identity proofs, not a substitute for enrolment.",
+            "legal_basis": "Section 62 of the Representation of the People Act, 1951 which ties the right to vote to enrolment in a specific constituency’s roll; ECI guidelines on use of Aadhaar only as one of several IDs",
+            "category": "Registration",
+        },
+        "govt_changes_evm_software": {
+            "myth": "The ruling government can change the EVM software between phases to favour its candidates.",
+            "reality": "EVM software is burnt into one-time programmable chips at manufacture and cannot be rewritten; machines are sealed and checked in the presence of party representatives and cannot be altered mid-election.",
+            "legal_basis": "Section 61A of the Representation of the People Act, 1951 and ECI’s technical procedures for EVM manufacture, sealing and First Level Checking by BEL and ECIL engineers",
+            "category": "EVM",
+        },
+        "evm_internet_upload": {
+            "myth": "Voting data from EVMs is uploaded to remote servers over the Internet and can be intercepted or changed in transit.",
+            "reality": "EVMs are never connected to any network; vote totals are read locally from the Control Unit at the counting centre and recorded manually and in air-gapped counting systems.",
+            "legal_basis": "ECI’s EVM and counting manuals which prescribe physical retrieval of results from Control Units and prohibit any network connectivity during polling and counting",
+            "category": "EVM",
+        },
+        "photo_of_vote_allowed": {
+            "myth": "I am allowed to take a selfie inside the voting compartment or a photo of the EVM panel to show whom I voted for.",
+            "reality": "Taking photographs inside the voting compartment or of the EVM is strictly prohibited and violates the secrecy of the ballot, which is protected by law.",
+            "legal_basis": "Section 128 of the Representation of the People Act, 1951 and Conduct of Elections Rules, 1961 provisions on secret ballot and prohibition of exposing how a vote is recorded",
+            "category": "Rights",
+        },
+        "nota_causes_reelection": {
+            "myth": "If many people choose NOTA in a constituency, the Election Commission must cancel the result and order a re-poll.",
+            "reality": "NOTA does not trigger automatic re-election irrespective of how many people choose it; the candidate with the highest valid votes among candidates still wins.",
+            "legal_basis": "PUCL v. Union of India (2013) and subsequent ECI clarifications, which emphasise that NOTA is an expression of disapproval, not a candidate or veto mechanism",
+            "category": "NOTA",
+        },
+        "form_8A_still_valid": {
+            "myth": "I can still use Form 8A to transpose my name within the same constituency or State as in earlier years.",
+            "reality": "Form 8A has been formally discontinued from 1 August 2022 and all its functions have been merged into the consolidated Form 8 for corrections and shifting.",
+            "legal_basis": "Registration of Electors (Amendment) Rules, 2022 notified by the Government of India on the Election Commission’s recommendation, which introduced modified Form 8 and withdrew Form 8A",
+            "category": "Registration",
+        },
+        "vis_is_voter_id": {
+            "myth": "The Voter Information Slip with my name and photo can be used as a voter ID, so I do not need any other document.",
+            "reality": "The Voter Information Slip is only an intimation document and is not accepted as proof of identity; you must carry EPIC or another approved photo ID to vote.",
+            "legal_basis": "Election Commission of India press notes and instructions explicitly stating that Voter Information Slips are not identity documents for the purpose of voting",
+            "category": "Polling_Day",
+        },
+    },
+
+    "key_critical_facts": {
+        "portal_primary": "The only official portal for online voter registration forms and roll search is https://voters.eci.gov.in; older domains like nvsp.in now redirect into this unified portal.",
+        "form_8a_status": "Form 8A for transposition of entries in the electoral roll has been discontinued since 1 August 2022 and its functions are merged into Form 8.",
+        "vvpat_window_seconds": "The VVPAT slip is visible to the voter through a transparent window for approximately seven seconds before it falls into the sealed box.",
+        "form_6b_voluntary": "Form 6B for Aadhaar authentication is voluntary and non-submission cannot be the sole ground for deletion of any voter’s name from the roll.",
+        "form_6b_deletion_risk": "There is zero deletion risk for not submitting Form 6B; the ERO cannot strike off your name only for that reason.",
+        "alternative_ids_count": "There are exactly twelve categories of approved alternative photo identity documents that can be used if EPIC is not available, provided the name is on the electoral roll.",
+        "vis_not_valid_id": "The Voter Information Slip is not a valid identity document for voting and is meant only to help voters know their part number, serial number and polling station.",
+        "paid_holiday_section": "Paid holiday on poll day for Parliamentary and Assembly elections is a statutory entitlement under Section 135B of the Representation of the People Act, 1951.",
+        "paid_holiday_scope": "Section 135B covers all employees including daily wage and casual workers in any business, trade, industrial undertaking or commercial establishment who are electors.",
+        "paid_holiday_max_fine": "Employers who violate Section 135B by denying paid holiday or deducting wages can be punished with a fine up to five hundred rupees.",
+        "right_to_vote_statutory": "Right to vote is a statutory right under Section 62 of the Representation of the People Act, 1951, not a fundamental right, though the freedom of voting is linked to Article 19(1)(a).",
+        "universal_adult_suffrage": "Article 326 of the Constitution provides for universal adult suffrage based on age and residence subject to limited disqualifications.",
+        "silence_period_length": "The election silence period under Section 126 of the Representation of the People Act, 1951 is 48 hours before the scheduled time of conclusion of poll.",
+        "impersonation_tendered_vote": "The remedy for impersonation at the booth is the tendered vote mechanism under Rule 42 of the Conduct of Elections Rules, 1961.",
+        "evm_storage_min_days": "EVMs used in an election are kept sealed in strong rooms for at least 45 days after declaration of result to cover the period for filing election petitions.",
+        "vvpat_preservation_one_year": "VVPAT slips are preserved in sealed packets for one year as per Rule 94 of the Conduct of Elections Rules, 1961.",
+        "evm_manufacturers": "The only authorised manufacturers of Indian EVMs are Bharat Electronics Limited (BEL) and Electronics Corporation of India Limited (ECIL).",
+        "nota_no_veto": "NOTA has no veto power; the candidate with the highest valid votes among human candidates wins even if NOTA receives the largest count.",
+        "lok_sabha_magic_number": "A party or alliance needs 272 seats out of 543 in the Lok Sabha to have an absolute majority and form the Union Government on its own.",
+        "cvigil_sla_100m": "The cVIGIL app operates with a 100 minute service level target for field verification and action on each admissible complaint.",
+        "indelible_ink_manufacturer": "Indelible ink used in Indian elections is manufactured exclusively by Mysore Paints and Varnish Ltd, a Government of Karnataka undertaking.",
+        "indelible_ink_finger": "Indelible ink is applied to the left forefinger of each voter before they receive the ballot on poll day.",
+        "lok_sabha_expenditure_limit_per_candidate": "The general expenditure limit for a Lok Sabha candidate in larger States is ninety five lakh rupees, with specific State-wise limits notified by the Election Commission of India.",
+        "cabinet_size_max_percentage": "Under Article 75(1A) the total number of Union Ministers, including the Prime Minister, cannot exceed 15 percent of the total strength of the Lok Sabha.",
+        "anti_defection_merger_exception": "Under the Tenth Schedule, a merger supported by at least two-thirds of the members of a legislature party is exempt from disqualification as defection.",
+        "employer_fine_for_denying_holiday": "An employer who refuses to grant paid holiday for voting or cuts wages is liable to a fine that may extend to five hundred rupees under Section 135B.",
+        "form_17a_purpose": "Form 17A is the Register of Voters maintained at each polling station, recording serial number, name, ID details and signature or thumb impression of every elector who is issued a ballot on the EVM.",
+    },
+
+    "sveep_program": {
+        "full_name": "Systematic Voters’ Education and Electoral Participation",
+        "mandate": "To increase voter awareness, registration and informed, ethical electoral participation across all sections of society in line with the motto No Voter to be Left Behind.",
+        "target_groups": [
+            "youth",
+            "women",
+            "Persons with Disabilities",
+            "minorities and marginalised communities",
+            "urban apathetic voters",
+            "Non-Resident Indian community for awareness about registration and voting requirements",
+            "first_time_voters",
+        ],
+        "key_initiatives": [
+            "Setting up Electoral Literacy Clubs in schools, colleges and educational institutions",
+            "Organising Chunav Pathshalas at the booth level to reach out to non-student populations",
+            "Running multimedia campaigns on television, radio, social media and community platforms explaining registration, voting procedures and ethical voting",
+            "Conducting special drives for enrolment of young voters turning 18 and for bridging gender and urban turnout gaps",
+            "Developing accessible content and outreach programmes for Persons with Disabilities, including home visits and facilitation through Saksham and other tools",
+        ],
+        "no_voter_left_behind_ethos": "SVEEP’s guiding ethos is that every eligible citizen, regardless of geography, gender, disability, socio-economic status or literacy, should be informed, motivated and facilitated to participate in elections.",
+        "saksham_connection": "Saksham and other accessibility initiatives for PwD and elderly voters are implemented under the broader umbrella of SVEEP’s commitment to inclusive and accessible elections.",
+        "media_channels": [
+            "Traditional print and electronic media such as newspapers, television and radio",
+            "Community and folk media, including street plays, rallies and local cultural events",
+            "Digital and social media platforms including short explanatory videos and infographics",
+            "Educational materials distributed through schools, colleges and training institutions",
+        ],
+        "launched_year": "The SVEEP programme began around 2009 as a structured voter education initiative and has since evolved through multiple phases based on experience and evaluation.",
+    },
+
+    "indelible_ink": {
+        "applied_to": "Left forefinger of each voter before issue of the ballot on poll day",
+        "manufacturer": "Mysore Paints and Varnish Ltd (MVPL)",
+        "location": "Mysore, Karnataka, India",
+        "duration_weeks": "The ink mark usually lasts a few days on skin but remains visible on the fingernail and cuticle for two to three weeks or longer until the nail grows out.",
+        "purpose": "To prevent multiple voting by the same person and to provide a visible, tamper-resistant record that the individual has already cast a vote in that election.",
+        "composition_note": "Indelible ink typically uses a dye such as silver nitrate in a suitable solvent and formulation that penetrates the upper layer of skin and nail and becomes resistant to normal washing or rubbing.",
+        "what_if_already_has_ink": "If the left forefinger is already marked with indelible ink for that election, the person is normally not allowed to vote again because the mark indicates a ballot has already been issued.",
+        "myth_buster": "Using household chemicals or abrasive methods may lighten the skin stain but cannot remove the mark from the nail instantly; attempting to tamper with the ink does not entitle anyone to vote twice.",
+    },
+
+    "election_expenditure_limits": {
+        "lok_sabha_limit_per_candidate": "Ninety five lakh rupees is the standard upper expenditure limit for a Lok Sabha candidate in larger States, subject to State-specific and category-wise notifications by the Election Commission of India.",
+        "assembly_limit_per_candidate": "The general upper expenditure limit for an Assembly candidate in larger States is around forty lakh rupees, with exact limits specified by ECI State-wise notifications.",
+        "enforced_by": "Expenditure Observers appointed by the Election Commission of India, assisted by district expenditure monitoring mechanisms including Flying Squads and Static Surveillance Teams.",
+        "submission_deadline_post_result": "Candidates must submit their final account of election expenditure to the Returning Officer within the time frame specified by law and ECI instructions, typically within thirty days of the declaration of result.",
+        "consequence_of_violation": "Failure to lodge accounts of election expenses in the prescribed manner or significant understatement can lead to disqualification from contesting elections for a specified period and may also attract other legal consequences.",
+        "monitoring_tools": [
+            "Flying Squad Teams conducting surprise checks and responding to cVIGIL and other complaints",
+            "Shadow Observation Registers comparing observed campaign activities with candidates’ reported expenses",
+            "Video surveillance and videography of rallies, public meetings and high-expenditure campaign events",
+        ],
+        "citizen_complaint_channel": "Citizens can report suspected cash distribution, paid news, liquor or gift inducements to the 1950 helpline, through cVIGIL, or to local election authorities for action by the expenditure monitoring machinery.",
+    },
+}
+import json
+
+def get_formatted_context():
+    return json.dumps(knowledge_base, indent=2, ensure_ascii=False)

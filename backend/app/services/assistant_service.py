@@ -15,6 +15,7 @@ class HistoryMessage(BaseModel):
 class ChatRequest(BaseModel):
     question: str
     history: list[HistoryMessage] = []
+    language_preference: str = "auto"
 
 class ChatResponse(BaseModel):
     response: str
@@ -39,10 +40,29 @@ def get_chat_response(request: ChatRequest) -> str:
             )
 
         # Add current question
+        # Language override injection
+        lang_map = {
+            "en": "Reply ONLY in English.",
+            "hi": "Reply ONLY in Hindi using Devanagari script.",
+            "mr": "Reply ONLY in Marathi.",
+            "ta": "Reply ONLY in Tamil script.",
+            "te": "Reply ONLY in Telugu script.",
+            "bn": "Reply ONLY in Bengali script.",
+            "kn": "Reply ONLY in Kannada script.",
+            "gu": "Reply ONLY in Gujarati script.",
+        }
+
+        lang_instruction = lang_map.get(request.language_preference, "")
+
+        if lang_instruction:
+            augmented_question = f"{request.question}\n\n[LANGUAGE INSTRUCTION: {lang_instruction}]"
+        else:
+            augmented_question = request.question
+
         contents.append(
             types.Content(
                 role="user",
-                parts=[types.Part.from_text(text=request.question)]
+                parts=[types.Part.from_text(text=augmented_question)]
             )
         )
 

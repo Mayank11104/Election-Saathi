@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, RefreshCw, Send } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, RefreshCw, Send, Globe } from 'lucide-react';
 import ChatMessage from '../components/chatpage/ChatMessage';
 import type { Message } from '../components/chatpage/ChatMessage';
 import CapabilityCards from '../components/chatpage/CapabilityCards';
@@ -69,6 +69,18 @@ function createId(): string {
   return Math.random().toString(36).substring(2, 10);
 }
 
+const LANGUAGES = [
+  { code: "auto", label: "Auto 🔍" },
+  { code: "en",   label: "English" },
+  { code: "hi",   label: "हिंदी" },
+  { code: "mr",   label: "मराठी" },
+  { code: "ta",   label: "தமிழ்" },
+  { code: "te",   label: "తెలుగు" },
+  { code: "bn",   label: "বাংলা" },
+  { code: "kn",   label: "ಕನ್ನಡ" },
+  { code: "gu",   label: "ગુજરાતી" },
+];
+
 /* ═══════════════════════════════════════════════════════════
    CHAT PAGE
    ═══════════════════════════════════════════════════════════ */
@@ -77,6 +89,8 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedLang, setSelectedLang] = useState<string>("auto");
+  const [langToast, setLangToast] = useState<string>("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -127,12 +141,12 @@ export default function ChatPage() {
       setSuggestions([]);
 
       try {
-        const response = await fetch('http://localhost:8000/api/chat', {
+        const response = await fetch('/api/chat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ question: content, history }),
+          body: JSON.stringify({ question: content, history, language_preference: selectedLang }),
         });
 
         if (!response.ok) {
@@ -173,7 +187,7 @@ export default function ChatPage() {
         inputRef.current?.focus();
       }
     },
-    [input, isLoading, messages],
+    [input, isLoading, messages, selectedLang],
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -238,6 +252,54 @@ export default function ChatPage() {
         </div>
       </header>
 
+      {/* ─── LANGUAGE SELECTOR BAR ─── */}
+      <div className="flex-shrink-0 bg-white border-b border-gray-100">
+        <div className="max-w-3xl mx-auto px-4 py-2 flex items-center gap-3">
+          {/* Label */}
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            <Globe className="w-3.5 h-3.5 text-orange-500" />
+            <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
+              Reply in:
+            </span>
+          </div>
+
+          {/* Divider */}
+          <div className="w-px h-4 bg-gray-200 flex-shrink-0" />
+
+          {/* Pills — scrollable */}
+          <div className="flex gap-1.5 overflow-x-auto scrollbar-hide">
+            {LANGUAGES.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => {
+                  setSelectedLang(lang.code);
+                  const toastMessages: Record<string, string> = {
+                    auto: "Auto-detecting your language 🔍",
+                    en: "Switched to English 🇬🇧",
+                    hi: "हिंदी में जवाब मिलेगा 🇮🇳",
+                    mr: "मराठीत उत्तर मिळेल 🇮🇳",
+                    ta: "தமிழில் பதில் கிடைக்கும் 🇮🇳",
+                    te: "తెలుగులో సమాధానం వస్తుంది 🇮🇳",
+                    bn: "বাংলায় উত্তর পাবেন 🇮🇳",
+                    kn: "ಕನ್ನಡದಲ್ಲಿ ಉತ್ತರ ಸಿಗುತ್ತದೆ 🇮🇳",
+                    gu: "ગુજરાતીમાં જવાબ મળશે 🇮🇳",
+                  };
+                  setLangToast(toastMessages[lang.code] || "");
+                  setTimeout(() => setLangToast(""), 2500);
+                }}
+                className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 border ${
+                  selectedLang === lang.code
+                    ? "bg-orange-500 text-white border-orange-500 shadow-sm scale-105"
+                    : "bg-white text-gray-600 border-gray-200 hover:border-orange-400 hover:text-orange-600 hover:bg-orange-50"
+                }`}
+              >
+                {lang.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* ─── CHAT WINDOW ─── */}
       <main className="flex-1 overflow-y-auto">
         <div className="max-w-3xl mx-auto px-4 py-6">
@@ -255,7 +317,7 @@ export default function ChatPage() {
                   Namaste! I'm Election Saathi 🇮🇳
                 </h2>
                 <p className="text-sm text-text-muted text-center max-w-md">
-                  Ask me anything about Indian elections — in English or Hindi
+                  Ask me anything about Indian elections — in English, हिंदी, or 7 other Indian languages
                 </p>
               </motion.div>
 
@@ -312,6 +374,20 @@ export default function ChatPage() {
       {/* ─── INPUT AREA ─── */}
       <footer className="flex-shrink-0 bg-white border-t border-gray-100">
         <div className="max-w-3xl mx-auto px-4 pt-3 pb-[max(env(safe-area-inset-bottom),16px)] sm:pb-3">
+          <AnimatePresence>
+            {langToast && (
+              <motion.div
+                key="lang-toast"
+                initial={{ opacity: 0, y: 6, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="text-center text-xs text-orange-600 bg-orange-50 border border-orange-200 py-1 px-4 rounded-full mx-auto w-fit mb-2"
+              >
+                {langToast}
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div className="flex items-end gap-2">
             <div className="flex-1 relative">
               <textarea

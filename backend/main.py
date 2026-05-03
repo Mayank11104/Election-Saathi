@@ -8,11 +8,13 @@ app = FastAPI(
     version="1.0"
 )
 
-# Enable CORS for frontend
+# Enable CORS — allow all origins (Nginx reverse proxy is the security boundary in production)
+import os
+FRONTEND_URL = os.getenv("FRONTEND_URL", "*")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5174"], # Adding 5174 just in case Vite uses it
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
