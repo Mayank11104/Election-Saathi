@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, RefreshCw, Send, Globe } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Send, Globe, Clock } from 'lucide-react';
 import ChatMessage from '../components/chatpage/ChatMessage';
 import type { Message } from '../types';
 import React, { Suspense, useMemo } from 'react';
 import { APP_NAME, ROUTES } from '../constants';
 import { trackEvent } from '../utils/analytics';
+import { sendChatMessage } from '../services/api';
+import { saveMessageToFirestore, loadMessagesFromFirestore, createOrUpdateSession, loadSessions, type ChatSession } from '../lib/firebase';
 
 const CapabilityCards = React.lazy(() => import('../components/chatpage/CapabilityCards'));
 const StarterChips = React.lazy(() => import('../components/chatpage/StarterChips'));
@@ -97,6 +99,9 @@ const ChatPage = React.memo(function ChatPage() {
   const [selectedLang, setSelectedLang] = useState<string>("auto");
   const [langToast, setLangToast] = useState<string>("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [sessionId, setSessionId] = useState<string>(createId());
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -105,9 +110,10 @@ const ChatPage = React.memo(function ChatPage() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Auto-focus input
+  // Auto-focus input and load sessions
   useEffect(() => {
     inputRef.current?.focus();
+    loadSessions(10).then(setSessions);
   }, []);
 
   const handleSend = useCallback(
@@ -130,6 +136,14 @@ const ChatPage = React.memo(function ChatPage() {
         content,
         timestamp: getTimestamp(),
       };
+      
+      if (messages.length === 0) {
+        const title = content.length > 30 ? content.slice(0, 30) + '...' : content;
+        createOrUpdateSession(sessionId, title);
+        setSessions(prev => [{ id: sessionId, title, updatedAt: Date.now() }, ...prev.filter(s => s.id !== sessionId)]);
+      }
+
+      saveMessageToFirestore(userMsg, sessionId);
 
       // Add loading placeholder
       const loadingMsg: Message = {
@@ -147,19 +161,11 @@ const ChatPage = React.memo(function ChatPage() {
       trackEvent('message_sent', { message_length: content.length, language: selectedLang });
 
       try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ question: content, history, language_preference: selectedLang }),
+        const data = await sendChatMessage({
+          question: content,
+          history,
+          language_preference: selectedLang
         });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
 
         const assistantMsg: Message = {
           id: createId(),
@@ -167,6 +173,8 @@ const ChatPage = React.memo(function ChatPage() {
           content: data.response,
           timestamp: getTimestamp(),
         };
+
+        saveMessageToFirestore(assistantMsg, sessionId);
 
         setMessages((prev) => {
           // Remove loading message, add real response
@@ -208,10 +216,12 @@ const ChatPage = React.memo(function ChatPage() {
   }, [handleSend]);
 
   const handleNewChat = useCallback(() => {
+    setSessionId(createId());
     setMessages([]);
     setInput('');
     setIsLoading(false);
     setSuggestions([]);
+    setIsHistoryOpen(false);
     inputRef.current?.focus();
   }, []);
 
@@ -277,7 +287,43 @@ const ChatPage = React.memo(function ChatPage() {
           </div>
 
           {/* Right */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 relative">
+            {sessions.length > 0 && (
+              <button
+                onClick={() => setIsHistoryOpen(!isHistoryOpen)}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-text-muted hover:bg-surface hover:text-saffron transition-all"
+                aria-label="View history"
+              >
+                <Clock className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">History</span>
+              </button>
+            )}
+            
+            {isHistoryOpen && (
+              <div className="absolute top-full mt-2 right-0 bg-white border border-gray-100 shadow-xl rounded-lg w-64 z-50 overflow-hidden">
+                <div className="px-4 py-2 bg-surface border-b border-gray-100 flex justify-between items-center">
+                  <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Recent Chats</span>
+                  <button onClick={() => setIsHistoryOpen(false)} className="text-gray-400 hover:text-gray-600">×</button>
+                </div>
+                <div className="max-h-60 overflow-y-auto">
+                  {sessions.map(s => (
+                    <button
+                      key={s.id}
+                      onClick={() => {
+                        setSessionId(s.id);
+                        loadMessagesFromFirestore(s.id).then(setMessages);
+                        setIsHistoryOpen(false);
+                        trackEvent('chat_session_opened', { session_id: s.id });
+                      }}
+                      className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-b border-gray-50 last:border-0 truncate"
+                    >
+                      {s.title}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <button
               onClick={handleNewChat}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium

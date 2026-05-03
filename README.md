@@ -499,6 +499,27 @@ Ask: *"Can I still use Form 8A?"*
 
 ---
 
+## ☁️ Google Cloud Architecture
+
+Election Saathi is built heavily on robust Google Cloud and Firebase services.
+
+### 1. Firebase Firestore (Chat Persistence)
+- Chats are persisted to Firebase Firestore using a highly resilient abstraction layer (`src/lib/firebase.ts`). 
+- **Session History:** Each conversation is saved as a distinct session, with a "History" dropdown allowing voters to revisit previous chats.
+- The app handles missing Firebase configurations gracefully, ensuring development and fallback environments never crash if environment variables are not set.
+
+### 2. BigQuery & Analytics Pipeline
+To understand what voters care about, the app uses a direct pipeline from client to data warehouse:
+**Frontend Events → Google Analytics 4 (GA4) → BigQuery Export**
+- **GA4** captures key events like `language_changed`, `chip_clicked`, and `message_sent`.
+- **BigQuery** receives daily raw event exports from GA4, allowing complex SQL analysis of Indian voter trends and language demographics.
+- *See [ANALYTICS.md](./frontend/src/docs/ANALYTICS.md) for a detailed breakdown of events and analysis use cases.*
+
+### 3. API Proxy Abstraction
+The frontend abstracts Google Gemini API calls via a dedicated service layer (`src/services/api.ts`). This ensures the React application remains completely decoupled from direct LLM interactions, securely routing requests through `/api/chat`.
+
+---
+
 ## 🔮 Future Roadmap
 
 - **Voice interface** — Bhashini API for Hindi/regional language voice input
