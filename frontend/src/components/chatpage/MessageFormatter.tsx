@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 interface Props {
   text: string;
@@ -15,6 +15,8 @@ import {
   isProTip 
 } from "../../utils/parser";
 
+const isDevanagari = (text: string): boolean => /[\u0900-\u097F]/.test(text);
+
 // ─── Inline text renderer ──────────────────────────────────────────────────
 
 function InlineText({ text }: { text: string }) {
@@ -23,9 +25,10 @@ function InlineText({ text }: { text: string }) {
     <>
       {parts.map((part, i) => {
         if (part.startsWith("**") && part.endsWith("**")) {
-          return <strong key={i} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>;
+          const content = part.slice(2, -2);
+          return <strong key={i} className={`font-semibold text-gray-900 ${isDevanagari(content) ? 'text-devanagari' : ''}`}>{content}</strong>;
         }
-        return <React.Fragment key={i}>{part}</React.Fragment>;
+        return <span key={i} className={isDevanagari(part) ? 'text-devanagari' : ''}>{part}</span>;
       })}
     </>
   );
@@ -185,7 +188,9 @@ function parseAndRender(text: string): React.ReactNode[] {
 
 // ─── Main export ──────────────────────────────────────────────────────────
 
-export default function MessageFormatter({ text }: Props) {
-  const nodes = parseAndRender(text);
+const MessageFormatter = function MessageFormatter({ text }: Props) {
+  const nodes = useMemo(() => parseAndRender(text), [text]);
   return <div className="message-formatter flex flex-col">{nodes}</div>;
-}
+};
+
+export default React.memo(MessageFormatter);

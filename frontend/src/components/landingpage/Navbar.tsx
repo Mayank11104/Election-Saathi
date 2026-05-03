@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Vote } from 'lucide-react';
+import { APP_NAME, ROUTES } from '../../constants';
 
-export default function Navbar() {
+const Navbar = React.memo(function Navbar() {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
 
@@ -32,13 +33,13 @@ export default function Navbar() {
               <Vote className="w-4 h-4 sm:w-5 sm:h-5 text-saffron" />
             </div>
             <span className="text-[15px] lg:text-[18px] font-bold text-saffron font-[var(--font-heading)] truncate">
-              Election Saathi
+              {APP_NAME}
             </span>
           </a>
 
           {/* CTA Button */}
           <motion.button
-            onClick={() => navigate('/chat')}
+            onClick={() => navigate(ROUTES.CHAT)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
             className="px-3.5 py-1.5 sm:px-6 sm:py-2.5 bg-saffron text-white rounded-full text-xs sm:text-sm font-semibold
@@ -53,4 +54,6 @@ export default function Navbar() {
       </div>
     </motion.nav>
   );
-}
+});
+
+export default Navbar;

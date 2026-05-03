@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Copy, Check } from 'lucide-react';
 import LoadingDots from './LoadingDots';
 import MessageFormatter from './MessageFormatter';
+import { trackEvent } from '../../utils/analytics';
 
 /* Tiny inline Ashoka Chakra avatar */
 function ChakraAvatar() {
@@ -33,28 +34,23 @@ function ChakraAvatar() {
   );
 }
 
-export interface Message {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: string;
-  isLoading?: boolean;
-}
+import type { Message } from '../../types';
 
 interface Props {
   message: Message;
 }
 
-export default function ChatMessage({ message }: Props) {
+const ChatMessage = function ChatMessage({ message }: Props) {
   const isUser = message.role === 'user';
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     if (!message.content) return;
     await navigator.clipboard.writeText(message.content);
     setCopied(true);
+    trackEvent('copy_message');
     setTimeout(() => setCopied(false), 2000);
-  };
+  }, [message.content]);
 
   return (
     <motion.div
@@ -114,4 +110,6 @@ export default function ChatMessage({ message }: Props) {
       </div>
     </motion.div>
   );
-}
+};
+
+export default React.memo(ChatMessage);

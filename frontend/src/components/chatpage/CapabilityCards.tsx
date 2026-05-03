@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { BookOpen, UserCheck, Shield } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -40,7 +41,7 @@ const cardVariants = {
   },
 };
 
-export default function CapabilityCards() {
+const CapabilityCards = function CapabilityCards() {
   return (
     <motion.div
       variants={containerVariants}
@@ -68,4 +69,6 @@ export default function CapabilityCards() {
       })}
     </motion.div>
   );
-}
+};
+
+export default React.memo(CapabilityCards);

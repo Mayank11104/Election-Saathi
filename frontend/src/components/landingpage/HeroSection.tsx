@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { APP_NAME, ROUTES } from '../../constants';
 
 /* ── Ashoka Chakra SVG ── */
 function AshokaChakra({ className = '' }: { className?: string }) {
@@ -120,12 +121,12 @@ export default function HeroSection() {
             <p className="mt-6 text-sm sm:text-base md:text-lg text-text-muted leading-relaxed max-w-xl mx-auto lg:mx-0">
               India has 960 million voters. Most don't know what Form 6 is,
               where their polling booth is, or how votes are actually counted.
-              Election Saathi changes that — one conversation at a time.
+              {APP_NAME} changes that — one conversation at a time.
             </p>
 
             <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
               <motion.button
-                onClick={() => navigate('/chat')}
+                onClick={() => navigate(ROUTES.CHAT)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
                 className="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-3.5 bg-saffron text-white rounded-full font-semibold text-base

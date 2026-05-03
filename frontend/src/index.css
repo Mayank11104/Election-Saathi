@@ -15,6 +15,16 @@
   --font-body: 'Inter', sans-serif;
 }
 
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  img {
+    content-visibility: auto;
+  }
+}
+
 * {
   scroll-behavior: smooth;
 }
@@ -116,6 +126,7 @@ html, body {
 /* Smooth scrolling for messages */
 .messages-area {
   scroll-behavior: smooth;
+  will-change: scroll-position;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -141,6 +152,12 @@ input, textarea, select {
 /* Touch tap highlight removal */
 * {
   -webkit-tap-highlight-color: transparent;
+}
+
+.text-devanagari {
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  line-height: 1.8; /* Devanagari needs more line height */
+  font-size: 1.05em; /* Slightly larger for readability */
 }
 
 /* Prevent text selection on UI elements */

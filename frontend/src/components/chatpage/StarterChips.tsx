@@ -1,14 +1,8 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight } from 'lucide-react';
 
-const starterQuestions = [
-  'How do I register to vote for the first time?',
-  'I moved cities. How do I transfer my voter ID?',
-  'What documents do I need on voting day?',
-  'What is EVM and how does it work?',
-  'What is the Model Code of Conduct?',
-  'How are votes counted after polling?',
-];
+import { STARTER_CHIPS } from '../../constants';
 
 interface Props {
   onSelect: (question: string) => void;
@@ -28,7 +22,7 @@ const chipVariants = {
   },
 };
 
-export default function StarterChips({ onSelect }: Props) {
+const StarterChips = React.memo(function StarterChips({ onSelect }: Props) {
   return (
     <motion.div
       variants={containerVariants}
@@ -36,7 +30,7 @@ export default function StarterChips({ onSelect }: Props) {
       animate="visible"
       className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide flex-nowrap sm:grid sm:grid-cols-2 sm:gap-2.5 w-full max-w-2xl mx-auto"
     >
-      {starterQuestions.map((q) => (
+      {STARTER_CHIPS.map((q) => (
         <motion.button
           key={q}
           variants={chipVariants}
@@ -55,4 +49,6 @@ export default function StarterChips({ onSelect }: Props) {
       ))}
     </motion.div>
   );
-}
+});
+
+export default StarterChips;

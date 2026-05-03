@@ -5,7 +5,7 @@ import ChatPage from '../../pages/ChatPage';
 import { vi } from 'vitest';
 
 // Mock the fetch API
-global.fetch = vi.fn();
+globalThis.fetch = vi.fn();
 
 describe('ChatPage — Initial state', () => {
   beforeEach(() => {
@@ -20,21 +20,21 @@ describe('ChatPage — Initial state', () => {
     );
   };
 
-  it('renders welcome screen with capability cards', () => {
+  it('renders welcome screen with capability cards', async () => {
     renderWithRouter();
     expect(screen.getByText(/Namaste! I'm Election Saathi/)).toBeInTheDocument();
-    expect(screen.getByText('Learn the Process')).toBeInTheDocument();
+    expect(await screen.findByText('Learn the Process')).toBeInTheDocument();
   });
 
-  it('renders starter chips', () => {
+  it('renders starter chips', async () => {
     renderWithRouter();
-    expect(screen.getByText('How do I register to vote for the first time?')).toBeInTheDocument();
+    expect(await screen.findByText('How do I register to vote for the first time?')).toBeInTheDocument();
   });
 
   it('shows empty message list', () => {
     renderWithRouter();
     // No messages should be rendered yet (meaning no Copy buttons or bubbles)
-    const messages = document.querySelectorAll('.bg-saffron, .bg-white.border');
+    document.querySelectorAll('.bg-saffron, .bg-white.border');
     // Note: The capability cards also have bg-white border, we can check for ChatMessage specific things.
     // At initial state, the user bubble isn't there.
     expect(screen.queryByLabelText('Copy message')).not.toBeInTheDocument();
@@ -64,7 +64,7 @@ describe('ChatPage — Sending messages', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (global.fetch as any).mockResolvedValue({
+    (globalThis.fetch as any).mockResolvedValue({
       ok: true,
       json: async () => ({ response: 'This is the mocked API response' })
     });
@@ -109,7 +109,7 @@ describe('ChatPage — Sending messages', () => {
 
   it('loading message appears while API is pending', async () => {
     let resolveApi: any;
-    (global.fetch as any).mockImplementation(() => {
+    (globalThis.fetch as any).mockImplementation(() => {
       return new Promise((resolve) => {
         resolveApi = resolve;
       });
@@ -171,7 +171,7 @@ describe('ChatPage — Error handling', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (global.fetch as any).mockRejectedValue(new Error('Network error'));
+    (globalThis.fetch as any).mockRejectedValue(new Error('Network error'));
     Element.prototype.scrollIntoView = vi.fn();
   });
 
@@ -246,7 +246,7 @@ describe('ChatPage — Starter chips', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (global.fetch as any).mockResolvedValue({
+    (globalThis.fetch as any).mockResolvedValue({
       ok: true,
       json: async () => ({ response: 'Mocked response' })
     });
@@ -269,7 +269,7 @@ describe('ChatPage — Starter chips', () => {
     expect(input).toHaveValue('');
     
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalled();
+      expect(globalThis.fetch).toHaveBeenCalled();
     });
   });
 });

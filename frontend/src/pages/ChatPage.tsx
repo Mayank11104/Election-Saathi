@@ -3,9 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, RefreshCw, Send, Globe } from 'lucide-react';
 import ChatMessage from '../components/chatpage/ChatMessage';
-import type { Message } from '../components/chatpage/ChatMessage';
-import CapabilityCards from '../components/chatpage/CapabilityCards';
-import StarterChips from '../components/chatpage/StarterChips';
+import type { Message } from '../types';
+import React, { Suspense, useMemo } from 'react';
+import { APP_NAME, ROUTES } from '../constants';
+import { trackEvent } from '../utils/analytics';
+
+const CapabilityCards = React.lazy(() => import('../components/chatpage/CapabilityCards'));
+const StarterChips = React.lazy(() => import('../components/chatpage/StarterChips'));
+
 
 /* ─── Ashoka Chakra SVG (small header variant) ─── */
 function MiniChakra() {
@@ -84,7 +89,7 @@ const LANGUAGES = [
 /* ═══════════════════════════════════════════════════════════
    CHAT PAGE
    ═══════════════════════════════════════════════════════════ */
-export default function ChatPage() {
+const ChatPage = React.memo(function ChatPage() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -139,6 +144,7 @@ export default function ChatPage() {
       setInput('');
       setIsLoading(true);
       setSuggestions([]);
+      trackEvent('message_sent', { message_length: content.length, language: selectedLang });
 
       try {
         const response = await fetch('/api/chat', {
@@ -190,24 +196,57 @@ export default function ChatPage() {
     [input, isLoading, messages, selectedLang],
   );
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length <= maxChars) setInput(e.target.value);
+  }, []);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
-  };
+  }, [handleSend]);
 
-  const handleNewChat = () => {
+  const handleNewChat = useCallback(() => {
     setMessages([]);
     setInput('');
     setIsLoading(false);
     setSuggestions([]);
     inputRef.current?.focus();
-  };
+  }, []);
+
+  const handleChipSelect = useCallback((q: string) => {
+    trackEvent('chip_clicked', { chip_text: q });
+    handleSend(q);
+  }, [handleSend]);
+
+  const handleLangToggle = useCallback((langCode: string) => {
+    setSelectedLang(langCode);
+    const toastMessages: Record<string, string> = {
+      auto: "Auto-detecting your language 🔍",
+      en: "Switched to English 🇬🇧",
+      hi: "हिंदी में जवाब मिलेगा 🇮🇳",
+      mr: "मराठीत उत्तर मिळेल 🇮🇳",
+      ta: "தமிழில் பதில் கிடைக்கும் 🇮🇳",
+      te: "తెలుగులో సమాధానం వస్తుంది 🇮🇳",
+      bn: "বাংলায় উত্তর পাবেন 🇮🇳",
+      kn: "ಕನ್ನಡದಲ್ಲಿ ಉತ್ತರ ಸಿಗುತ್ತದೆ 🇮🇳",
+      gu: "ગુજરાતીમાં જવાબ મળશે 🇮🇳",
+    };
+    setLangToast(toastMessages[langCode] || "");
+    setTimeout(() => setLangToast(""), 2500);
+    trackEvent('language_changed', { language: langCode });
+  }, []);
 
   const charCount = input.length;
   const maxChars = 500;
   const isEmpty = messages.length === 0;
+
+  const messagesList = useMemo(() => (
+    messages.map((m) => (
+      <ChatMessage key={m.id} message={m} />
+    ))
+  ), [messages]);
 
   return (
     <motion.div
@@ -222,7 +261,7 @@ export default function ChatPage() {
           {/* Left */}
           <div className="flex items-center gap-2.5">
             <button
-              onClick={() => navigate('/')}
+              onClick={() => navigate(ROUTES.HOME)}
               className="p-1.5 -ml-1.5 rounded-lg hover:bg-surface transition-colors"
               aria-label="Go back to home"
             >
@@ -231,7 +270,7 @@ export default function ChatPage() {
             <MiniChakra />
             <div>
               <h1 className="text-[15px] lg:text-[18px] font-bold text-saffron font-[var(--font-heading)] leading-tight truncate">
-                Election Saathi
+                {APP_NAME}
               </h1>
               <p className="hidden lg:block text-[11px] text-text-muted leading-tight">Your civic companion</p>
             </div>
@@ -271,22 +310,7 @@ export default function ChatPage() {
             {LANGUAGES.map((lang) => (
               <button
                 key={lang.code}
-                onClick={() => {
-                  setSelectedLang(lang.code);
-                  const toastMessages: Record<string, string> = {
-                    auto: "Auto-detecting your language 🔍",
-                    en: "Switched to English 🇬🇧",
-                    hi: "हिंदी में जवाब मिलेगा 🇮🇳",
-                    mr: "मराठीत उत्तर मिळेल 🇮🇳",
-                    ta: "தமிழில் பதில் கிடைக்கும் 🇮🇳",
-                    te: "తెలుగులో సమాధానం వస్తుంది 🇮🇳",
-                    bn: "বাংলায় উত্তর পাবেন 🇮🇳",
-                    kn: "ಕನ್ನಡದಲ್ಲಿ ಉತ್ತರ ಸಿಗುತ್ತದೆ 🇮🇳",
-                    gu: "ગુજરાતીમાં જવાબ મળશે 🇮🇳",
-                  };
-                  setLangToast(toastMessages[lang.code] || "");
-                  setTimeout(() => setLangToast(""), 2500);
-                }}
+                onClick={() => handleLangToggle(lang.code)}
                 className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 border ${
                   selectedLang === lang.code
                     ? "bg-orange-500 text-white border-orange-500 shadow-sm scale-105"
@@ -314,33 +338,35 @@ export default function ChatPage() {
               >
                 <LargeChakra />
                 <h2 className="text-xl sm:text-2xl font-bold text-text-primary text-center">
-                  Namaste! I'm Election Saathi 🇮🇳
+                  Namaste! I'm {APP_NAME} 🇮🇳
                 </h2>
                 <p className="text-sm text-text-muted text-center max-w-md">
                   Ask me anything about Indian elections — in English, हिंदी, or 7 other Indian languages
                 </p>
               </motion.div>
 
-              <CapabilityCards />
+                <Suspense fallback={<div className="h-40" />}>
+                  <CapabilityCards />
+                </Suspense>
 
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.4 }}
-                className="w-full max-w-2xl"
-              >
-                <p className="text-xs text-text-muted text-center mb-3 font-medium">
-                  Try asking:
-                </p>
-                <StarterChips onSelect={(q) => handleSend(q)} />
-              </motion.div>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.4 }}
+                  className="w-full max-w-2xl"
+                >
+                  <p className="text-xs text-text-muted text-center mb-3 font-medium">
+                    Try asking:
+                  </p>
+                  <Suspense fallback={<div className="h-10" />}>
+                    <StarterChips onSelect={handleChipSelect} />
+                  </Suspense>
+                </motion.div>
             </div>
           ) : (
             /* ─── MESSAGES ─── */
             <div className="flex flex-col gap-4">
-              {messages.map((msg) => (
-                <ChatMessage key={msg.id} message={msg} />
-              ))}
+              {messagesList}
 
               {/* Follow-up suggestions */}
               {suggestions.length > 0 && !isLoading && (
@@ -393,9 +419,7 @@ export default function ChatPage() {
               <textarea
                 ref={inputRef}
                 value={input}
-                onChange={(e) => {
-                  if (e.target.value.length <= maxChars) setInput(e.target.value);
-                }}
+                onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask about Indian elections..."
                 rows={1}
@@ -452,4 +476,6 @@ export default function ChatPage() {
       </footer>
     </motion.div>
   );
-}
+});
+
+export default ChatPage;
