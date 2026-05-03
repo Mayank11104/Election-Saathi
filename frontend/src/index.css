@@ -92,3 +92,17 @@ h1, h2, h3, h4 {
   background: var(--color-saffron);
   border-radius: 2px;
 }
+
+/* Message formatter — smooth rendering */
+.message-formatter {
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.message-formatter p + p {
+  margin-top: 0.25rem;
+}
+
+.message-formatter h3 {
+  letter-spacing: -0.01em;
+}

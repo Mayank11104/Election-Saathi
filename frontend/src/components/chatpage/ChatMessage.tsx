@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import LoadingDots from './LoadingDots';
+import MessageFormatter from './MessageFormatter';
 
 /* Tiny inline Ashoka Chakra avatar */
 function ChakraAvatar() {
@@ -28,52 +29,6 @@ function ChakraAvatar() {
       </svg>
     </div>
   );
-}
-
-/* Parse basic markdown-like formatting */
-function formatContent(content: string) {
-  return content.split('\n').map((line, i) => {
-    // Bold
-    const parts = line.split(/(\*\*[^*]+\*\*)/g).map((part, j) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
-        return (
-          <strong key={j} className="font-semibold text-text-primary">
-            {part.slice(2, -2)}
-          </strong>
-        );
-      }
-      return part;
-    });
-
-    // Bullet points
-    if (line.startsWith('• ') || line.startsWith('- ')) {
-      return (
-        <li key={i} className="ml-4 list-disc text-sm leading-relaxed">
-          {parts.map((p, _k) => (typeof p === 'string' ? p.replace(/^[•\-]\s/, '') : p))}
-        </li>
-      );
-    }
-
-    // Numbered items
-    if (/^\d+\.\s/.test(line)) {
-      return (
-        <li key={i} className="ml-4 list-decimal text-sm leading-relaxed">
-          {parts.map((p, _k) => (typeof p === 'string' ? p.replace(/^\d+\.\s/, '') : p))}
-        </li>
-      );
-    }
-
-    // Empty line → spacing
-    if (line.trim() === '') {
-      return <div key={i} className="h-2" />;
-    }
-
-    return (
-      <p key={i} className="text-sm leading-relaxed">
-        {parts}
-      </p>
-    );
-  });
 }
 
 export interface Message {
@@ -121,7 +76,7 @@ export default function ChatMessage({ message }: Props) {
             <LoadingDots />
           ) : (
             <div className={isUser ? 'text-sm leading-relaxed' : ''}>
-              {isUser ? message.content : formatContent(message.content)}
+              {isUser ? message.content : <MessageFormatter text={message.content} />}
             </div>
           )}
         </div>
