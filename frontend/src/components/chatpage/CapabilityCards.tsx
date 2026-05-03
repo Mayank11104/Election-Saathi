@@ -46,7 +46,7 @@ export default function CapabilityCards() {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-xl mx-auto"
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full max-w-2xl mx-auto"
     >
       {cards.map((card) => {
         const Icon = card.icon;
@@ -54,15 +54,15 @@ export default function CapabilityCards() {
           <motion.div
             key={card.title}
             variants={cardVariants}
-            className="flex flex-col items-center text-center p-4 rounded-xl
+            className="flex flex-col items-center text-center p-3.5 sm:p-4 lg:p-5 rounded-xl
                        bg-surface border border-gray-100 hover:border-saffron/30
                        hover:shadow-md hover:shadow-saffron/5 transition-all duration-200"
           >
             <div className="w-10 h-10 rounded-lg bg-saffron/10 flex items-center justify-center mb-2.5">
-              <Icon className="w-5 h-5 text-saffron" />
+              <Icon className="w-[20px] h-[20px] sm:w-5 sm:h-5 text-saffron" />
             </div>
-            <h4 className="text-sm font-semibold text-text-primary">{card.title}</h4>
-            <p className="text-xs text-text-muted mt-1 leading-relaxed">{card.desc}</p>
+            <h4 className="text-[13px] sm:text-[14px] font-semibold text-text-primary">{card.title}</h4>
+            <p className="text-[12px] sm:text-[13px] text-text-muted mt-1 leading-relaxed line-clamp-2">{card.desc}</p>
           </motion.div>
         );
       })}

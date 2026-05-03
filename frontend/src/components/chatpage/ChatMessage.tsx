@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { Copy, Check } from 'lucide-react';
 import LoadingDots from './LoadingDots';
 import MessageFormatter from './MessageFormatter';
 
@@ -7,7 +9,7 @@ function ChakraAvatar() {
   const spokes = 24;
   const cx = 12, cy = 12, r = 10, ir = 2.5;
   return (
-    <div className="w-7 h-7 rounded-full bg-saffron/10 flex items-center justify-center flex-shrink-0">
+    <div className="w-[28px] h-[28px] sm:w-[30px] sm:h-[30px] lg:w-[32px] lg:h-[32px] rounded-full bg-saffron/10 flex items-center justify-center flex-shrink-0">
       <svg viewBox="0 0 24 24" className="w-4 h-4" aria-hidden="true">
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="#FF9933" strokeWidth="1.2" />
         <circle cx={cx} cy={cy} r={ir} fill="none" stroke="#FF9933" strokeWidth="0.8" />
@@ -45,6 +47,14 @@ interface Props {
 
 export default function ChatMessage({ message }: Props) {
   const isUser = message.role === 'user';
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    if (!message.content) return;
+    await navigator.clipboard.writeText(message.content);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <motion.div
@@ -56,12 +66,22 @@ export default function ChatMessage({ message }: Props) {
       {/* Assistant avatar */}
       {!isUser && <ChakraAvatar />}
 
-      <div className={`max-w-[85%] sm:max-w-[75%] ${isUser ? 'items-end' : 'items-start'} flex flex-col`}>
+      <div className={`max-w-[88%] sm:max-w-[78%] lg:max-w-[640px] ${isUser ? 'items-end' : 'items-start'} flex flex-col group`}>
         {/* Label */}
         {!isUser && !message.isLoading && (
-          <span className="text-[11px] font-semibold text-saffron mb-1 ml-1">
-            Election Saathi
-          </span>
+          <div className="flex items-center justify-between w-full mb-1 ml-1 px-1">
+            <span className="text-[11px] font-semibold text-saffron">
+              Election Saathi
+            </span>
+            <button
+              onClick={handleCopy}
+              className="copy-btn opacity-0 group-hover:opacity-100 flex items-center gap-1 text-[10px] text-text-muted hover:text-saffron transition-all"
+              aria-label="Copy message"
+            >
+              {copied ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
+              <span>{copied ? 'Copied' : 'Copy'}</span>
+            </button>
+          </div>
         )}
 
         {/* Bubble */}
@@ -75,7 +95,7 @@ export default function ChatMessage({ message }: Props) {
           {message.isLoading ? (
             <LoadingDots />
           ) : (
-            <div className={isUser ? 'text-sm leading-relaxed' : ''}>
+            <div className={isUser ? 'text-[clamp(13px,1.5vw,13.5px)] leading-relaxed' : ''}>
               {isUser ? message.content : <MessageFormatter text={message.content} />}
             </div>
           )}

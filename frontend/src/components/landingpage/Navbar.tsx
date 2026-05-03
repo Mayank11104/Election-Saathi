@@ -25,13 +25,13 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-[52px] lg:h-[60px]">
           {/* Logo */}
           <a href="#" className="flex items-center gap-1.5 sm:gap-2 group">
             <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-saffron/10 flex items-center justify-center group-hover:bg-saffron/20 transition-colors shrink-0">
               <Vote className="w-4 h-4 sm:w-5 sm:h-5 text-saffron" />
             </div>
-            <span className="text-base sm:text-xl font-bold text-saffron font-[var(--font-heading)] truncate">
+            <span className="text-[15px] lg:text-[18px] font-bold text-saffron font-[var(--font-heading)] truncate">
               Election Saathi
             </span>
           </a>

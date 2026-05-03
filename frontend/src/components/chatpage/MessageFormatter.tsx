@@ -4,16 +4,16 @@ interface Props {
   text: string;
 }
 
-// ─── Utility parsers ───────────────────────────────────────────────────────
-
-function isNumberedStep(line: string) { return /^(?:\*\*)?\d+[\.\)](?:\*\*)?\s/.test(line.trim()); }
-function isBullet(line: string) { return /^(?:\*\*)?[-*•](?:\*\*)?\s/.test(line.trim()); }
-function isHeading(line: string) { return /^#{1,3}\s/.test(line.trim()); }
-function isBoldLine(line: string) { return /^\*\*(.+)\*\*:?$/.test(line.trim()); }
-function isPortalLine(line: string) { return line.toLowerCase().includes("voters.eci.gov.in"); }
-function isWarningLine(line: string) { return line.includes("⚠️") || line.toLowerCase().includes("important:"); }
-function isSuccessLine(line: string) { return line.includes("✅"); }
-function isProTip(line: string) { return line.includes("💡") || line.toLowerCase().includes("pro tip"); }
+import { 
+  isNumberedStep, 
+  isBullet, 
+  isHeading, 
+  isBoldLine, 
+  isPortalLine, 
+  isWarningLine, 
+  isSuccessLine, 
+  isProTip 
+} from "../../utils/parser";
 
 // ─── Inline text renderer ──────────────────────────────────────────────────
 
@@ -43,10 +43,10 @@ function StepBlock({ steps }: { steps: string[] }) {
         
         return (
           <div key={i} className="flex items-start gap-3">
-            <div className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-[11px] font-bold mt-0.5 shadow-sm" style={{ backgroundColor: "#FF9933" }}>
+            <div className="flex-shrink-0 w-5 h-5 lg:w-6 lg:h-6 rounded-full flex items-center justify-center text-white text-[10px] lg:text-[11px] font-bold mt-0.5 shadow-sm" style={{ backgroundColor: "#FF9933" }}>
               {num}
             </div>
-            <div className="flex-1 text-[14.5px] text-gray-800 leading-relaxed">
+            <div className="flex-1 text-[clamp(13px,1.5vw,13.5px)] text-gray-800 leading-relaxed">
               <InlineText text={content} />
             </div>
           </div>
@@ -62,8 +62,8 @@ function BulletBlock({ items }: { items: string[] }) {
       {items.map((item, i) => {
         const content = item.replace(/^(?:\*\*)?[-*•](?:\*\*)?\s*/, "");
         return (
-          <li key={i} className="flex items-start gap-3 text-[14.5px] text-gray-800">
-            <span className="flex-shrink-0 mt-[8px] w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#FF9933" }} />
+          <li key={i} className="flex items-start gap-3 text-[clamp(13px,1.5vw,13.5px)] text-gray-800">
+            <span className="flex-shrink-0 mt-[6px] lg:mt-[8px] w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#FF9933" }} />
             <div className="flex-1 leading-relaxed"><InlineText text={content} /></div>
           </li>
         );
@@ -75,7 +75,7 @@ function BulletBlock({ items }: { items: string[] }) {
 function HeadingBlock({ text }: { text: string }) {
   const content = text.replace(/^#{1,3}\s*/, "");
   return (
-    <h3 className="font-bold text-gray-900 text-[15px] mt-5 mb-2">
+    <h3 className="font-bold text-gray-900 text-[14px] lg:text-[15px] mt-5 mb-2">
       <InlineText text={content} />
     </h3>
   );
@@ -84,7 +84,7 @@ function HeadingBlock({ text }: { text: string }) {
 // Unified Info Card for all callouts (Success, Warning, Info, Portal)
 function InfoCard({ icon, text, bg, border, color }: { icon: string, text: string, bg: string, border: string, color: string }) {
   return (
-    <div className="my-3 flex items-start gap-3 p-3 rounded-xl text-[14px] font-medium shadow-sm" style={{ backgroundColor: bg, borderColor: border, borderWidth: 1, color: color }}>
+    <div className="my-3 flex items-start gap-2.5 sm:gap-3 p-2.5 sm:p-3 rounded-xl text-[clamp(12px,1.5vw,13px)] sm:text-[14px] font-medium shadow-sm" style={{ backgroundColor: bg, borderColor: border, borderWidth: 1, color: color }}>
       <span className="flex-shrink-0 text-base mt-0.5">{icon}</span>
       <div className="flex-1 leading-relaxed"><InlineText text={text} /></div>
     </div>
@@ -163,7 +163,7 @@ function parseAndRender(text: string): React.ReactNode[] {
     if (isBoldLine(line)) {
       const content = line.replace(/^\*\*/, "").replace(/\*\*:?$/, "");
       nodes.push(
-        <h4 key={`bold-${i}`} className="font-semibold text-gray-900 text-[14.5px] mt-4 mb-1">
+        <h4 key={`bold-${i}`} className="font-semibold text-gray-900 text-[clamp(13.5px,1.5vw,14.5px)] mt-4 mb-1">
           {content}
         </h4>
       );
@@ -173,7 +173,7 @@ function parseAndRender(text: string): React.ReactNode[] {
 
     // Regular paragraph
     nodes.push(
-      <p key={`p-${i}`} className="text-[14.5px] text-gray-800 leading-relaxed my-2.5">
+      <p key={`p-${i}`} className="text-[clamp(13px,1.5vw,13.5px)] text-gray-800 leading-relaxed my-2.5">
         <InlineText text={line} />
       </p>
     );

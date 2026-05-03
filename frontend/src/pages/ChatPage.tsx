@@ -214,11 +214,11 @@ export default function ChatPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4 }}
-      className="flex flex-col h-screen bg-surface"
+      className="flex flex-col h-[100dvh] overflow-hidden bg-surface chat-page"
     >
       {/* ─── HEADER ─── */}
-      <header className="flex-shrink-0 bg-white border-b border-gray-100 px-4 py-3">
-        <div className="max-w-5xl mx-auto flex items-center justify-between">
+      <header className="flex-shrink-0 bg-white border-b border-gray-100 px-4 h-[52px] lg:h-[60px] flex items-center">
+        <div className="max-w-5xl mx-auto flex items-center justify-between w-full">
           {/* Left */}
           <div className="flex items-center gap-2.5">
             <button
@@ -230,10 +230,10 @@ export default function ChatPage() {
             </button>
             <MiniChakra />
             <div>
-              <h1 className="text-base font-bold text-saffron font-[var(--font-heading)] leading-tight">
+              <h1 className="text-[15px] lg:text-[18px] font-bold text-saffron font-[var(--font-heading)] leading-tight truncate">
                 Election Saathi
               </h1>
-              <p className="text-[11px] text-text-muted leading-tight">Your civic companion</p>
+              <p className="hidden lg:block text-[11px] text-text-muted leading-tight">Your civic companion</p>
             </div>
           </div>
 
@@ -301,7 +301,7 @@ export default function ChatPage() {
       </div>
 
       {/* ─── CHAT WINDOW ─── */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto messages-area pb-[calc(80px+env(safe-area-inset-bottom))]">
         <div className="max-w-5xl mx-auto px-4 py-6">
           {isEmpty ? (
             /* ─── EMPTY STATE ─── */
@@ -373,7 +373,7 @@ export default function ChatPage() {
 
       {/* ─── INPUT AREA ─── */}
       <footer className="flex-shrink-0 bg-white border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4 pt-3 pb-[max(env(safe-area-inset-bottom),16px)] sm:pb-3">
+        <div className="max-w-5xl mx-auto px-4 pt-3 pb-[env(safe-area-inset-bottom)] sm:pb-3">
           <AnimatePresence>
             {langToast && (
               <motion.div
@@ -403,11 +403,12 @@ export default function ChatPage() {
                            px-4 py-3 pr-12 text-sm text-text-primary placeholder:text-text-muted/50
                            focus:outline-none focus:border-saffron focus:ring-2 focus:ring-saffron/20
                            transition-all duration-200"
-                style={{ minHeight: '44px', maxHeight: '120px' }}
+                style={{ minHeight: '44px' }}
                 onInput={(e) => {
                   const el = e.target as HTMLTextAreaElement;
+                  const maxH = window.innerWidth >= 1024 ? 160 : 120;
                   el.style.height = 'auto';
-                  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+                  el.style.height = Math.min(el.scrollHeight, maxH) + 'px';
                 }}
                 disabled={isLoading}
               />
