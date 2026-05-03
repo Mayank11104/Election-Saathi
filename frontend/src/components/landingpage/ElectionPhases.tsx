@@ -31,14 +31,14 @@ const containerVariants = {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' as const } },
 };
 
 export default function ElectionPhases() {
   const [phasesData, setPhasesData] = useState<Phase[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/election/phases')
+    fetch('/api/election/phases')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {

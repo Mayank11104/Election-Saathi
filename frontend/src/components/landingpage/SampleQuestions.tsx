@@ -17,7 +17,7 @@ const containerVariants = {
 
 const chipVariants = {
   hidden: { opacity: 0, scale: 0.9, y: 15 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' } },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.35, ease: 'easeOut' as const } },
 };
 
 export default function SampleQuestions() {

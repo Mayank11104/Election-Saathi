@@ -49,7 +49,7 @@ function formatContent(content: string) {
     if (line.startsWith('• ') || line.startsWith('- ')) {
       return (
         <li key={i} className="ml-4 list-disc text-sm leading-relaxed">
-          {parts.map((p, k) => (typeof p === 'string' ? p.replace(/^[•\-]\s/, '') : p))}
+          {parts.map((p, _k) => (typeof p === 'string' ? p.replace(/^[•\-]\s/, '') : p))}
         </li>
       );
     }
@@ -58,7 +58,7 @@ function formatContent(content: string) {
     if (/^\d+\.\s/.test(line)) {
       return (
         <li key={i} className="ml-4 list-decimal text-sm leading-relaxed">
-          {parts.map((p, k) => (typeof p === 'string' ? p.replace(/^\d+\.\s/, '') : p))}
+          {parts.map((p, _k) => (typeof p === 'string' ? p.replace(/^\d+\.\s/, '') : p))}
         </li>
       );
     }
